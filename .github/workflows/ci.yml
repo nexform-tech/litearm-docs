@@ -1,11 +1,18 @@
-# Test gate for a repository that currently ships documentation only.
+# Test gate for the documentation source:
+#
+#   - build/check_docs.py resolves every figure the manuals and the committed
+#     site reference against the working tree. A missing figure is silent in both
+#     the typesetter and the browser, so nothing else catches it.
+#   - The two READMEs are linted.
 #
 # Tests live in their own workflow: they run on pull requests, while the release
 # workflow runs on pushes to the default branch. Mixing the two means a broken
 # release blocks a pull request, or the reverse.
 #
-# Replace the test step with the project's real toolchain and test command as soon
-# as source code lands; see the repository standards in AGENTS.md.
+# The manual sources (*.md at the repository root) are deliberately not linted:
+# they carry raw ```{=latex} blocks and are written for a fixed page geometry, so
+# prose rules like line length do not apply to them. build/check_docs.py covers
+# what does matter about them.
 #
 # AGENTS.md is deliberately not linted: it is canonical content synced from
 # repo-template and must not be edited here.
@@ -37,14 +44,20 @@ jobs:
           node-version: 22
 
       - name: Lint Markdown
-        run: npx --yes markdownlint-cli2@0.23.3 "README.md"
+        run: npx --yes markdownlint-cli2@0.23.3 "README.md" "README.zh-CN.md"
+
+      - name: Check manual sources
+        run: python3 build/check_docs.py
 
       - name: Validate repository standards
         run: |
           set -euo pipefail
           test -s README.md
+          test -s README.zh-CN.md
           test -s AGENTS.md
           test -s LICENSE
+          test -s LITEARM_SE产品手册.md
+          test -s "LITEARM SE软件开发手册.md"
           python3 -c "import json; json.load(open('.releaserc.json'))"
           python3 -c "import json; json.load(open('.markdownlint.json'))"
           echo "repository standards OK"
