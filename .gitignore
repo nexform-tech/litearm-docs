@@ -1,15 +1,15 @@
-# Provisional: replace once the documentation toolchain is chosen
-# (MkDocs, Docusaurus, Sphinx, VitePress, ...).
+# PDF build intermediates. The .pdf files are committed; everything build_a3.sh
+# derives on the way to them is not, because the next build overwrites it.
+/*.aux
+/*.log
+/*.toc
+/*.tex
+/build/gen/
 
-# Rendered site
-site/
-_build/
-build/
-dist/
-public/
-
-# Toolchain caches
-.cache/
-node_modules/
-.venv/
+# Python caches
 __pycache__/
+*.pyc
+
+# Editors and OS
+.DS_Store
+*.swp
