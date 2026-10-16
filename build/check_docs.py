@@ -2,8 +2,11 @@
 # -*- coding: utf-8 -*-
 """检查手册正文引用的图片是否都在仓库里。
 
-读两份手册的 markdown 和已提交的 manual_site/index.html，把 LITEARM_SE_images/
-形式的引用一条条解析成真实路径，逐个确认文件存在。
+读四份手册的 markdown（中英文各两份）和已提交的 manual_site/index.html，把
+LITEARM_SE_images/ 形式的引用一条条解析成真实路径，逐个确认文件存在。
+
+英文手册引用 safety/en/ 与 litearm_studio/en/ 下的英文图，与中文手册引用的
+不是同一批文件，所以两份都要查。
 
 用途：图片改名、漏拷、或删图而没改正文时，这里会红 —— 排版流程不会报错，只是
 PDF 和站点里少一张图，人工评审很难发现。
@@ -20,6 +23,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TARGETS = [
     ("LITEARM_SE产品手册.md", ROOT),
     ("LITEARM SE软件开发手册.md", ROOT),
+    ("LITEARM-SE-product-manual.md", ROOT),
+    ("LITEARM-SE-software-development-manual.md", ROOT),
     (os.path.join("manual_site", "index.html"), os.path.join(ROOT, "manual_site")),
 ]
 
