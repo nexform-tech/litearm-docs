@@ -12,8 +12,8 @@ Chinese and in English. Every edition is published as a PDF and as Markdown.
 | --- | --- | --- | --- | --- |
 | LITEARM SE 产品手册 (product manual) | 简体中文 | 12 | [`LITEARM_SE产品手册.pdf`](<LITEARM_SE产品手册.pdf>) | [`LITEARM_SE产品手册.md`](<LITEARM_SE产品手册.md>) |
 | LITEARM-SE product manual | English | 13 | [`LITEARM-SE-product-manual.pdf`](LITEARM-SE-product-manual.pdf) | [`LITEARM-SE-product-manual.md`](LITEARM-SE-product-manual.md) |
-| LITEARM SE 软件开发手册 (software development manual) | 简体中文 | 29 | [`LITEARM SE软件开发手册.pdf`](<LITEARM SE软件开发手册.pdf>) | [`LITEARM SE软件开发手册.md`](<LITEARM SE软件开发手册.md>) |
-| LITEARM-SE software development manual | English | 33 | [`LITEARM-SE-software-development-manual.pdf`](LITEARM-SE-software-development-manual.pdf) | [`LITEARM-SE-software-development-manual.md`](LITEARM-SE-software-development-manual.md) |
+| LITEARM SE 软件开发手册 (software development manual) | 简体中文 | 28 | [`LITEARM SE软件开发手册.pdf`](<LITEARM SE软件开发手册.pdf>) | [`LITEARM SE软件开发手册.md`](<LITEARM SE软件开发手册.md>) |
+| LITEARM-SE software development manual | English | 32 | [`LITEARM-SE-software-development-manual.pdf`](LITEARM-SE-software-development-manual.pdf) | [`LITEARM-SE-software-development-manual.md`](LITEARM-SE-software-development-manual.md) |
 
 All four are revision V1.0.4, dated 2026-10-16. The revision history is the first
 page of each.

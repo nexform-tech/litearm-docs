@@ -80,16 +80,16 @@ This manual and the product manual use the four warning signs below. The marking
 
 ```{=latex}
 \noindent\textbullet{}~\textbf{DANGER}: a hazard that will cause death or serious injury, or severe equipment damage.\par
-\vspace{0.4em}\noindent\makebox[\linewidth][c]{\includegraphics[width=0.095\linewidth]{LITEARM_SE_images/safety/en/danger.png}}\par
+\vspace{0.4em}\noindent\makebox[\linewidth][c]{\includegraphics[width=0.095\linewidth]{LITEARM_SE_images/safety/danger.png}}\par
 \vspace{1em}
 \noindent\textbullet{}~\textbf{WARNING}: a hazard that can cause death or serious injury, or severe equipment damage, if it is not avoided.\par
-\vspace{0.4em}\noindent\makebox[\linewidth][c]{\includegraphics[width=0.095\linewidth]{LITEARM_SE_images/safety/en/warning.png}}\par
+\vspace{0.4em}\noindent\makebox[\linewidth][c]{\includegraphics[width=0.095\linewidth]{LITEARM_SE_images/safety/warning.png}}\par
 \vspace{1em}
 \noindent\textbullet{}~\textbf{HIGH TEMPERATURE}: hot parts, where contact can cause burns or damage equipment.\par
-\vspace{0.4em}\noindent\makebox[\linewidth][c]{\includegraphics[width=0.095\linewidth]{LITEARM_SE_images/safety/en/high_temp.png}}\par
+\vspace{0.4em}\noindent\makebox[\linewidth][c]{\includegraphics[width=0.095\linewidth]{LITEARM_SE_images/safety/high_temp.png}}\par
 \vspace{1em}
 \noindent\textbullet{}~\textbf{NOTICE}: a general caution, where failure to avoid the hazard can cause injury or equipment damage.\par
-\vspace{0.4em}\noindent\makebox[\linewidth][c]{\includegraphics[width=0.095\linewidth]{LITEARM_SE_images/safety/en/notice.png}}\par
+\vspace{0.4em}\noindent\makebox[\linewidth][c]{\includegraphics[width=0.095\linewidth]{LITEARM_SE_images/safety/notice.png}}\par
 ```
 
 ### Safety notices (software side)
