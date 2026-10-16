@@ -2,44 +2,27 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-The product documentation source for the LiteArm robotic manipulator series: the
-LITEARM SE manuals in Chinese and English as PDFs, the Markdown they are built
-from, the figures behind them, and the two pipelines that turn that Markdown into
-a PDF and into a browsable offline copy. Read this before editing a manual. If
-you are installing or programming an arm, read the manual itself.
-
-The Chinese editions are what the product ships with, so **they are the
-authority**. The English editions are translations of the same revision: same
-structure, same tables, same code. When the two disagree, the Chinese one is
-right, and the English one is the bug.
+The product documentation for the LiteArm robotic manipulator series: the
+LITEARM SE product manual and software development manual, each in Simplified
+Chinese and in English. Every edition is published as a PDF and as Markdown.
 
 ## The manuals
 
-| Manual | Language | Pages | Source | PDF |
+| Manual | Language | Pages | PDF | Source |
 | --- | --- | --- | --- | --- |
-| LITEARM SE 产品手册 (product manual) | 简体中文 | 12 | [`LITEARM_SE产品手册.md`](<LITEARM_SE产品手册.md>) | [`LITEARM_SE产品手册.pdf`](<LITEARM_SE产品手册.pdf>) |
-| LITEARM-SE product manual | English | 13 | [`LITEARM-SE-product-manual.md`](LITEARM-SE-product-manual.md) | [`LITEARM-SE-product-manual.pdf`](LITEARM-SE-product-manual.pdf) |
-| LITEARM SE 软件开发手册 (software development manual) | 简体中文 | 29 | [`LITEARM SE软件开发手册.md`](<LITEARM SE软件开发手册.md>) | [`LITEARM SE软件开发手册.pdf`](<LITEARM SE软件开发手册.pdf>) |
-| LITEARM-SE software development manual | English | 33 | [`LITEARM-SE-software-development-manual.md`](LITEARM-SE-software-development-manual.md) | [`LITEARM-SE-software-development-manual.pdf`](LITEARM-SE-software-development-manual.pdf) |
+| LITEARM SE 产品手册 (product manual) | 简体中文 | 12 | [`LITEARM_SE产品手册.pdf`](<LITEARM_SE产品手册.pdf>) | [`LITEARM_SE产品手册.md`](<LITEARM_SE产品手册.md>) |
+| LITEARM-SE product manual | English | 13 | [`LITEARM-SE-product-manual.pdf`](LITEARM-SE-product-manual.pdf) | [`LITEARM-SE-product-manual.md`](LITEARM-SE-product-manual.md) |
+| LITEARM SE 软件开发手册 (software development manual) | 简体中文 | 29 | [`LITEARM SE软件开发手册.pdf`](<LITEARM SE软件开发手册.pdf>) | [`LITEARM SE软件开发手册.md`](<LITEARM SE软件开发手册.md>) |
+| LITEARM-SE software development manual | English | 33 | [`LITEARM-SE-software-development-manual.pdf`](LITEARM-SE-software-development-manual.pdf) | [`LITEARM-SE-software-development-manual.md`](LITEARM-SE-software-development-manual.md) |
 
 All four are revision V1.0.4, dated 2026-10-16. The revision history is the first
 page of each.
 
-The Chinese sources carry CJK filenames because they are the files that ship;
-the English ones use ASCII names, so a tool that mangles an encoding cannot lose
-them. A translated manual is edited in its own file — do not generate one from
-the other, because prose does not translate by substitution and the tables and
-code blocks have to be read to be right.
-
-**Do not edit a PDF.** The PDFs are generated from the Markdown, and the next
-build overwrites them. A change to a manual lands as two files in one commit —
-the Markdown and the rebuilt PDF. The intermediate `.tex` is generated too, and
-is git-ignored; never edit it.
-
 The **product manual** is for whoever unpacks, mounts, wires or specifies the
 arm: hardware composition, units, safety notices, general and control-board
 specifications, joint parameters, annotated figures, and a Q&A. Mounting the arm
-is a separate document, `LITEARM-SE机械臂安装教程`, which lives in
+is a separate document, `LITEARM-SE-installation-guide` and its Chinese edition
+`LITEARM-SE机械臂安装教程`, which live in
 [litearm-setup](https://github.com/nexform-tech/litearm-setup) rather than here.
 
 The **software development manual** is for whoever drives the arm from a
@@ -47,139 +30,6 @@ computer: the SDK usage guide, with the Python library as the main line, a
 survey of the other language bindings and the ROS 2 environment, the LiteArm
 Studio host application and safe operation on real hardware, and two appendices
 — robot state and error codes, and connecting over serial.
-
-## The figures
-
-`LITEARM_SE_images/` holds 64 images, shared by the four manuals, the site, and
-the next figure still to be drawn:
-
-| Directory | Contents |
-| --- | --- |
-| `safety/` | the four hazard icons: danger, warning, high temperature, notice |
-| `safety/en/` | the same four pictograms relabelled in English, used by the English manuals |
-| `litearm_studio/` | screenshots of the host application |
-| `litearm_studio/en/` | the same screenshots with the English UI |
-| `placeholders/` | stand-in figures, `ph_pm_*` for the product manual and `ph_sd_*` for the software one |
-| `control_board/` | photographs of the control board |
-| `LITEARM_SE_images/` itself | the two cover images and three annotated arm figures |
-
-The four manuals reference fourteen of them today; the two editions of a manual
-share the language-independent figures and each has its own screenshots and
-hazard icons. The rest are the working set for figures that are not placed yet,
-which is why the directory is larger than the manuals need.
-
-`safety/en/` is generated by `build/make_safety_icons.py`, which crops the
-Chinese word off each pictogram and sets the English one below it. The Chinese
-originals are never touched. Rerunning the script overwrites the English files,
-so **do not edit them by hand** — edit the script.
-
-Figure files are referenced from the Markdown by relative path, and both the
-typesetter and the site builder resolve them from the repository root. Rename one
-and those references break: run `python3 build/check_docs.py` to find out before
-CI does.
-
-## Building the PDFs
-
-From the repository root:
-
-```bash
-bash build/build_a3.sh                            # all four manuals
-bash build/build_a3.sh LITEARM_SE产品手册          # just the Chinese product manual
-bash build/build_a3.sh LITEARM-SE-product-manual  # just the English one
-```
-
-Each manual goes through pandoc to TeX, two Python post-processing passes, and
-three xelatex passes, and the result lands next to its source in the repository
-root. The `.tex`, `.aux`, `.log` and `.toc` files that appear alongside it are
-intermediates and are git-ignored.
-
-| Requirement | Notes |
-| --- | --- |
-| `pandoc` | Markdown to TeX. Verified with pandoc 2.9.2.1 |
-| `xelatex` | Verified with TeX Live 2022; needs `xeCJK`, `tikz` and `booktabs` |
-| `python3` | runs `zebra.py` and `breaktt.py` |
-| Fonts | Lato, Noto Sans Mono, DejaVu Sans Mono, Noto Sans CJK SC, and the Noto Serif CJK SC single-region `.otf` files |
-
-`build/a3_layout.tex` is one layout for all four manuals, with placeholders
-`build_a3.sh` fills per language: the CJK line-breaking and `\setCJKmainfont`
-block, the table-of-contents title (目录 or Contents), and the figure caption
-format (图 or Figure). The English builds load **no** CJK package, so their
-fonts, line breaking and page counts are genuinely independent of the Chinese
-ones; `dejavu` is the one extra dependency they carry, for the U+2500 box
-drawing in the directory-tree and link diagrams that Latin Modern Mono lacks.
-
-The CJK body font is pinned **by file, not by family name**, because asking the
-system for `Noto Serif CJK SC` can resolve to the Japanese face in the shared
-collection and silently change glyphs. `build/build_a3.sh` substitutes the
-directory into `build/a3_layout.tex` from `LITEARM_CJK_FONT_DIR`, which defaults
-to `~/.local/share/fonts/NotoSerifSC`. On a machine where those two `.otf` files
-live elsewhere, the build stops and says so:
-
-```bash
-LITEARM_CJK_FONT_DIR=/path/to/NotoSerifSC bash build/build_a3.sh
-```
-
-**Do not put a placeholder name in a comment.** The substituted blocks are
-multi-line, so one landing inside a TeX comment ends the comment and turns the
-rest of the block into live TeX, which fails as a `Missing \begin{document}`
-pointing at a line nobody wrote. The build checks for both this and any
-placeholder left unconsumed, so the mistake is caught before pandoc runs.
-
-## Browsing the manuals offline
-
-```bash
-python3 build/make_wiki.py
-```
-
-This writes `manual_site/index.html`, which is committed: one page, a tab per
-manual, a collapsible section tree on the left and a search box over the current
-manual. Open it in a browser, no server needed.
-
-Its figures are referenced as `../LITEARM_SE_images/...`, so the page reads the
-same directory the PDFs are built from and the repository does not carry a second
-7 MB copy of it. **Keep the file where it is in the repository** — copy
-`index.html` out on its own and every figure disappears. Do not edit it by hand
-either; the next run overwrites it.
-
-## Checking the sources
-
-```bash
-python3 build/check_docs.py
-```
-
-It reads all four manuals and the committed `manual_site/index.html`, resolves
-every `LITEARM_SE_images/...` reference against the working tree, and fails on
-the ones that do not exist. This runs in CI. A missing figure is not an error to
-either the typesetter or the browser — the image is simply absent, and neither
-the PDF diff nor a review catches that reliably. The English manuals need this
-as much as the Chinese ones do: they point at `safety/en/` and
-`litearm_studio/en/`, which a reorganisation of the figure tree can easily leave
-behind.
-
-## Repository layout
-
-```text
-litearm-docs/
-├── LITEARM_SE产品手册.md                        # product manual source — edit this, not the PDF
-├── LITEARM_SE产品手册.pdf                       # built by build/build_a3.sh
-├── LITEARM-SE-product-manual.md                # its English edition
-├── LITEARM-SE-product-manual.pdf
-├── LITEARM SE软件开发手册.md                     # software development manual source
-├── LITEARM SE软件开发手册.pdf                    # built by build/build_a3.sh
-├── LITEARM-SE-software-development-manual.md   # its English edition
-├── LITEARM-SE-software-development-manual.pdf
-├── LITEARM_SE_images/           # figures, shared by the manuals and the site
-├── manual_site/index.html       # browsable copy, built by build/make_wiki.py
-└── build/
-    ├── build_a3.sh              # Markdown -> PDF, three xelatex passes per manual
-    ├── a3_layout.tex            # page geometry, heading, TOC and caption metrics
-    ├── a3_style_prod.tex        # extra table style the product manual adds
-    ├── zebra.py                 # grey striping on table body rows
-    ├── breaktt.py               # \allowbreak inside \texttt, for long identifiers
-    ├── make_safety_icons.py     # hazard icons relabelled in English
-    ├── make_wiki.py             # Markdown -> manual_site/index.html
-    └── check_docs.py            # the test
-```
 
 ## Related repositories
 
@@ -237,12 +87,6 @@ Agent integrations:
 The same organisation publishes the W1 wheeled mobile robot (`w1-*`) and the
 LiteGrip gripper (`litegrip-*`). See the
 [nexform-tech organisation](https://github.com/nexform-tech) for the full list.
-
-## Repository standards
-
-This repository follows the shared NEXFORM ROBOTICS repository standards: the
-agent operating rules in [AGENTS.md](AGENTS.md), Conventional Commits, and
-automated semantic-release versioning on every merge to `main`.
 
 ## License
 
