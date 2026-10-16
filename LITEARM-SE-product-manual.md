@@ -99,17 +99,21 @@ The safety notices elsewhere in this manual use the signs below, shown in Figure
 \centering
 \makebox[\linewidth][c]{%
 \begin{minipage}[b]{0.16\linewidth}\centering
-\includegraphics[width=0.95\linewidth,keepaspectratio]{LITEARM_SE_images/safety/en/danger.png}
+\includegraphics[width=0.95\linewidth,keepaspectratio]{LITEARM_SE_images/safety/danger.png}\\
+\scriptsize DANGER
 \end{minipage}\hspace{0.08\linewidth}%
 \begin{minipage}[b]{0.16\linewidth}\centering
-\includegraphics[width=0.95\linewidth,keepaspectratio]{LITEARM_SE_images/safety/en/warning.png}
+\includegraphics[width=0.95\linewidth,keepaspectratio]{LITEARM_SE_images/safety/warning.png}\\
+\scriptsize WARNING
 \end{minipage}}\par\vspace{0.6em}%
 \makebox[\linewidth][c]{%
 \begin{minipage}[b]{0.16\linewidth}\centering
-\includegraphics[width=0.95\linewidth,keepaspectratio]{LITEARM_SE_images/safety/en/high_temp.png}
+\includegraphics[width=0.95\linewidth,keepaspectratio]{LITEARM_SE_images/safety/high_temp.png}\\
+\scriptsize HIGH TEMPERATURE
 \end{minipage}\hspace{0.08\linewidth}%
 \begin{minipage}[b]{0.16\linewidth}\centering
-\includegraphics[width=0.95\linewidth,keepaspectratio]{LITEARM_SE_images/safety/en/notice.png}
+\includegraphics[width=0.95\linewidth,keepaspectratio]{LITEARM_SE_images/safety/notice.png}\\
+\scriptsize NOTICE
 \end{minipage}}
 \caption{Warning signs}
 \end{figure}
