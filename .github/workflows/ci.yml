@@ -58,6 +58,8 @@ jobs:
           test -s LICENSE
           test -s LITEARM_SE产品手册.md
           test -s "LITEARM SE软件开发手册.md"
+          test -s LITEARM-SE-product-manual.md
+          test -s LITEARM-SE-software-development-manual.md
           python3 -c "import json; json.load(open('.releaserc.json'))"
           python3 -c "import json; json.load(open('.markdownlint.json'))"
           echo "repository standards OK"
