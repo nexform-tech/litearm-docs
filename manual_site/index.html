@@ -1,0 +1,2204 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LITEARM SE 资料 · 产品手册 · NEXFORM ROBOTICS</title>
+<style>
+:root{
+  --accent:#3370ff; --accent-weak:#eaf1ff;
+  --bg:#f4f5f7; --card:#ffffff; --line:#e4e6eb;
+  --text:#1f2329; --muted:#646a73; --muted2:#8f959e;
+  --code-bg:#f6f8fa; --hover:#f2f3f5;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Noto Sans CJK SC","Noto Sans SC","Source Han Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  background:var(--bg);color:var(--text);font-size:15px;line-height:1.75;}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* 顶栏 */
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:24px;
+  background:#fff;border-bottom:1px solid var(--line);height:52px;padding:0 20px;}
+.brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:15px;white-space:nowrap}
+.brand .logo{width:24px;height:24px;border-radius:6px;background:linear-gradient(135deg,#3370ff,#0f3fd0);
+  color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800}
+.tabs{margin-left:auto;display:flex;background:var(--bg);border-radius:8px;padding:3px;gap:2px}
+.tab{border:0;background:transparent;padding:5px 16px;border-radius:6px;cursor:pointer;
+  font-size:14px;color:var(--muted);font-family:inherit}
+.tab.active{background:#fff;color:var(--accent);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+
+/* 布局 */
+.layout{display:flex;align-items:flex-start;max-width:1240px;margin:0 auto}
+.sidebar{position:sticky;top:52px;align-self:flex-start;width:264px;flex:none;height:calc(100vh - 52px);
+  overflow:auto;padding:14px 10px 40px;border-right:1px solid var(--line)}
+.search input{width:100%;border:1px solid var(--line);border-radius:6px;padding:6px 10px;
+  font-size:13px;background:#fff;outline:none;margin-bottom:8px}
+.search input:focus{border-color:var(--accent)}
+.tree ul{list-style:none;margin:0;padding-left:0}
+.tree .lv1>a{font-weight:600;color:var(--text)}
+.tree a{display:block;padding:3px 8px;border-radius:5px;color:var(--muted);font-size:13.5px;
+  text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tree ul ul a{padding-left:20px}
+.tree ul ul ul a{padding-left:34px;font-size:13px;color:var(--muted2)}
+.tree a:hover{background:var(--hover);color:var(--accent);text-decoration:none}
+.tree a.cur{background:var(--accent-weak);color:var(--accent);font-weight:600}
+.tree .none{color:var(--muted2);padding:6px 8px;font-size:13px}
+
+/* 正文 */
+.content{flex:1;min-width:0;padding:20px 28px 80px}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:10px;
+  padding:34px 44px 40px;max-width:900px;margin:0 auto}
+.doc h1,.doc h2,.doc h3,.doc h4{line-height:1.4;color:#101419;scroll-margin-top:70px}
+.doc h1{font-size:24px;border-bottom:2px solid var(--line);padding-bottom:10px;margin:10px 0 20px}
+.doc h2{font-size:19px;margin:28px 0 12px;padding-left:10px;border-left:4px solid var(--accent)}
+.doc h3{font-size:16px;margin:20px 0 8px}
+.doc h4{font-size:15px;margin:16px 0 6px;color:#3a3f47}
+.doc p{margin:8px 0}
+.doc hr{border:0;border-top:1px dashed var(--line);margin:26px 0}
+.doc blockquote{margin:10px 0;padding:10px 16px;background:#fafbfc;border-left:4px solid var(--accent);
+  border-radius:4px;color:#333}
+.doc ul,.doc ol{padding-left:26px;margin:8px 0}
+.doc li{margin:4px 0}
+.doc strong{font-weight:700}
+code{font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;font-size:12.5px;
+  background:var(--code-bg);border:1px solid #e6e8eb;border-radius:4px;padding:1px 5px;color:#c7254e}
+pre{background:#f7f9fb;border:1px solid var(--line);border-radius:8px;padding:12px 14px;
+  overflow-x:auto;line-height:1.5;margin:10px 0}
+pre code{background:transparent;border:0;padding:0;color:#2b2f36;font-size:12.5px;white-space:pre}
+.doc img{max-width:100%;height:auto}
+.doc figure{margin:16px auto;text-align:center}
+.doc figure img{display:block;margin:0 auto;max-height:520px;border:1px solid #edf0f3;border-radius:6px}
+.doc figure figcaption{color:var(--muted);font-size:13px;margin-top:6px}
+.doc table{border-collapse:collapse;width:100%;margin:12px 0;font-size:13.5px}
+.doc th,.doc td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
+.doc thead th,.doc tr:first-child th{background:#f7f8fa;font-weight:600}
+.doc tbody tr:nth-child(even){background:#fafbfc}
+.doc th[rowspan]{vertical-align:middle}
+
+/* 封面卡片 */
+.doc-cover{border:1px solid var(--line);border-radius:12px;padding:30px 34px;margin:6px 0 26px;
+  background:linear-gradient(180deg,#ffffff,#f7f9ff)}
+.cover-brand{letter-spacing:2px;color:var(--muted2);font-size:12.5px;margin:0 0 4px}
+.cover-title{margin:0 0 2px;font-size:34px;font-weight:800;border:0;padding:0;letter-spacing:1px}
+.cover-big2{color:var(--accent)}
+.cover-sub{color:var(--muted);font-size:14px;margin:2px 0 16px}
+.cover-meta{margin:0;max-width:460px;border:0}
+.cover-meta th,.cover-meta td{border:0;border-bottom:1px dashed var(--line);background:transparent!important;
+  padding:5px 8px;font-size:13.5px}
+.cover-meta th{color:var(--muted);width:96px;font-weight:500;text-align:left}
+.cover-foot{margin:18px 0 0;color:var(--muted2);font-size:12px}
+
+/* 安全标志 */
+.safety-grid{margin:14px 0;text-align:center}
+.safety-grid .s-row{display:flex;justify-content:center;gap:22px;flex-wrap:wrap}
+.s-item{margin:8px 6px;text-align:center}
+.s-item img{width:54px;height:54px;object-fit:contain}
+.s-item figcaption{font-size:13px;color:var(--muted)}
+.fig-note{color:var(--muted);font-size:12.5px;margin-top:8px}
+.safety-list{margin:12px 0;display:flex;flex-direction:column;gap:16px}
+.safe-item{text-align:center}
+.safe-item .safe-text{display:block;text-align:left;max-width:520px;margin:0 auto 6px}
+.s-icon{width:44px;height:44px;object-fit:contain}
+.doc-footer{color:var(--muted2);text-align:center;font-size:12.5px;border-top:1px solid var(--line);
+  padding-top:14px;margin-top:34px}
+@media (max-width:820px){.sidebar{display:none}.content{padding:12px}.doc{padding:20px 18px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="logo">N</span>LITEARM SE 资料</div>
+  <nav class="tabs">
+    <button class="tab active" data-doc="product">产品手册</button>
+    <button class="tab" data-doc="dev">软件开发手册</button>
+  </nav>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="search"><input id="q" placeholder="搜索当前文档章节…" autocomplete="off"></div>
+    <nav id="tree-product" class="tree"></nav>
+    <nav id="tree-dev" class="tree" style="display:none"></nav>
+  </aside>
+  <main class="content">
+    <article id="doc-product" class="doc"><section class="doc-cover">
+<p class="cover-brand">
+NEXFORM ROBOTICS
+</p>
+<h1 class="cover-title">
+LITEARM SE
+</h1>
+<p class="cover-sub">
+</p>
+<table class="cover-meta">
+</table>
+<p class="cover-foot">
+NEXFORM ROBOTICS
+</p>
+</section>
+<h2 id="修订记录">修订记录</h2>
+<table>
+<thead>
+<tr class="header">
+<th>版本</th>
+<th>修订时间</th>
+<th>修订记录</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>V1.0.4</td>
+<td>2026-10-16</td>
+<td>删除「机械臂安装以及使用指南」整章，安装步骤改为指向《LITEARM-SE 机械臂安装教程》；更新常见问题</td>
+</tr>
+<tr class="even">
+<td>V1.0.3</td>
+<td>2026-10-16</td>
+<td>控制系统改为板载控制板，上位机经 USB 直连；更新电气接口与连接说明</td>
+</tr>
+<tr class="odd">
+<td>V1.0.2</td>
+<td>2026-09-03</td>
+<td>添加安装说明/电气接口说明</td>
+</tr>
+<tr class="even">
+<td>V1.0.1</td>
+<td>2026-08-01</td>
+<td>新建 LITEARM SE 产品手册框架</td>
+</tr>
+</tbody>
+</table>
+<h1 id="前言">前言</h1>
+<p>LITEARM SE 是 NEXFORM ROBOTICS 面向科研教育、AI 机器人开发与轻量级工业自动化场景设计的 7 自由度协作机械臂，采用模块化关节架构，工作半径约 650 mm。机械臂由一块<strong>板载控制板</strong>统一驱动：控制板运行固件，承担轨迹规划、正逆运动学、动力学与关节控制律；控制板与机械臂本体之间为 CAN 总线（板内总线，用户无需接线或配置），上位机与控制板之间只用<strong>一根 USB 线</strong>直连。PC 侧软件（Python / C++ SDK、ROS 2、URDF、PyBullet/MuJoCo 仿真等）只负责下发命令与读取状态，可用于装配、分拣、抓取、示教与算法验证等场景。</p>
+<h2 id="硬件组成">硬件组成</h2>
+<p>标准交付套件的组成如下（最终以销售配置清单为准）：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">序号</th>
+<th>设备</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td>机械臂本体</td>
+<td>LITEARM SE，7 关节</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td>控制板</td>
+<td>板载控制器，随臂交付</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td>USB 线</td>
+<td>控制板 ↔︎ 上位机 PC</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td>机械臂电源输出</td>
+<td>机械臂供电引出线</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td>600 W 开关电源套件</td>
+<td>选配</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td>桌面固定套件</td>
+<td>选配</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td>立柱套件</td>
+<td>选配</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td>电动夹爪</td>
+<td>选配</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">9</td>
+<td>3D 相机</td>
+<td>选配</td>
+</tr>
+</tbody>
+</table>
+<h2 id="单位说明">单位说明</h2>
+<p>本文档及 SDK 中使用的物理量单位约定如下：</p>
+<table>
+<thead>
+<tr class="header">
+<th>参数</th>
+<th>单位</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>X / Y / Z</td>
+<td>m</td>
+<td>位置，米</td>
+</tr>
+<tr class="even">
+<td>R / P / Y</td>
+<td>rad</td>
+<td>姿态，弧度</td>
+</tr>
+<tr class="odd">
+<td>Joint（关节角）</td>
+<td>rad</td>
+<td>弧度</td>
+</tr>
+<tr class="even">
+<td>vTCP</td>
+<td>m/s</td>
+<td>末端线速度</td>
+</tr>
+<tr class="odd">
+<td>aTCP</td>
+<td>m/s²</td>
+<td>末端加速度</td>
+</tr>
+<tr class="even">
+<td>vJoint</td>
+<td>rad/s</td>
+<td>关节速度</td>
+</tr>
+<tr class="odd">
+<td>aJoint</td>
+<td>rad/s²</td>
+<td>关节加速度</td>
+</tr>
+<tr class="even">
+<td>质量 / 负载</td>
+<td>kg</td>
+<td>千克</td>
+</tr>
+<tr class="odd">
+<td>扭矩</td>
+<td>N·m</td>
+<td>牛米</td>
+</tr>
+<tr class="even">
+<td>电压 / 功耗</td>
+<td>VDC / W</td>
+<td>伏特 / 瓦特</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>位姿格式约定</strong>：位姿用 <strong>6 个数</strong>表示，前 3 个为位置 <code>x, y, z</code>（m），后 3 个为姿态 <code>rx, ry, rz</code>（rad，绕基坐标系 X/Y/Z 轴的旋转，即 RPY 角），例如 <code>(0.30, 0.0, 0.40, 3.1416, 0.0, 0.0)</code>。Python SDK 中 list 与 tuple 均可（详见《LITEARM SE 软件开发手册》）。</p>
+</blockquote>
+<h2 id="安全须知">安全须知</h2>
+<h3 id="简介">简介</h3>
+<p>本节介绍使用 LITEARM SE 机器人及系统时需要遵守的安全原则与规范。在安装、使用前，使用者必须认真阅读本手册，带有警示标志的内容需要掌握并严格遵守。机器人系统运行中存在夹持、碰撞、坠落等潜在危险，使用人员应充分认识操作风险，并经过培训后使用 SDK 或控制软件。</p>
+<h3 id="安全警示标志">安全警示标志</h3>
+<p>本手册其他章节的安全提示使用如下警示标志，警示标志图样如图1所示（图样以产品随附标识为准）：</p>
+<ul>
+<li><strong>危险</strong>：用于可能导致人员伤亡或设备严重损坏的危险情况。</li>
+<li><strong>警告</strong>：用于如不避免，可导致人员伤亡或设备严重损坏的危险情况。</li>
+<li><strong>高温</strong>：用于存在高温部件、接触可能造成灼烫伤害或设备损坏的危险情况。</li>
+<li><strong>注意</strong>：用于如不避免，可能导致人员伤害或设备损坏的一般警示。</li>
+</ul>
+<div class="safety-grid" aria-label="安全警示标志">
+<div class="s-row">
+<figure class="s-item">
+<img src="../LITEARM_SE_images/safety/danger.png" alt="危险">
+<figcaption>
+危险
+</figcaption>
+</figure>
+<figure class="s-item">
+<img src="../LITEARM_SE_images/safety/warning.png" alt="警告">
+<figcaption>
+警告
+</figcaption>
+</figure>
+<figure class="s-item">
+<img src="../LITEARM_SE_images/safety/high_temp.png" alt="高温">
+<figcaption>
+高温
+</figcaption>
+</figure>
+<figure class="s-item">
+<img src="../LITEARM_SE_images/safety/notice.png" alt="注意">
+<figcaption>
+注意
+</figcaption>
+</figure>
+</div>
+<p class="fig-note">
+安全警示标志（图样以产品随附标识为准）
+</p>
+</div>
+<h3 id="安全注意事项">安全注意事项</h3>
+<p>首次启动机器人或机器人系统前需理解并遵循以下基本信息。</p>
+<h4 id="机器人操作注意事项">机器人操作注意事项</h4>
+<ol type="1">
+<li>务必按照本手册要求规范安装机械臂本体、控制板与电气设备。</li>
+<li>首次使用前由专业人员对机械臂及防护系统进行初步检查，测试全部安全功能（急停、软限位、使能状态）。</li>
+<li>使用前检查设备完整性与安装牢固程度，确认符合所在地区安全生产规章。</li>
+<li>确保机械臂有足够大的运动空间，运动范围内无人员、障碍物与易卷入线缆。</li>
+<li>使用 SDK / 上位机开发调试前需仔细阅读文档，确保输入参数（目标关节角、速度、负载等）正确。</li>
+<li><strong>失能（<code>disable()</code>）或异常下电后，关节不再主动输出力矩，机械臂可能在重力作用下坠落。</strong> 进行相关操作前请先让机械臂回到安全姿态，或进入零重力模式由人手托扶，避免高处坠落造成人员伤亡或设备损坏。</li>
+<li>运行期间发生意外或异常，应立即按下硬件急停并切断电源，再排查问题。</li>
+<li>机械臂的斜率限制、关节软限位、非法值拒绝、通信看门狗与急停兜底均由控制板固件承担，<strong>不依赖上位机是否在线</strong>；但固件只做硬性兜底，非授权人员切勿通过 SDK 随意修改参数（关节限位、PD 增益、负载质量与质心、重力方向等），部分参数修改后需重新进行安全评估。</li>
+</ol>
+<h4 id="人员安全">人员安全</h4>
+<ol type="1">
+<li>使用人员应仔细阅读产品手册，掌握安全、规范的操作流程及报错处理方式。</li>
+<li>设备运转中，即使机械臂看起来已经停止，也可能处于等待指令状态，应视为仍在动作中。</li>
+<li>明确机械臂及末端执行器（夹爪、灵巧手等）的动作范围，设置安全工作区。</li>
+<li>定期检查机械臂，防止固定螺栓或末端工具松动。</li>
+<li>拖拽示教（零重力模式）时，注意机械臂自重与运动惯性，避免突然失力造成伤害；双手离开后机械臂应能保持当前姿态，如不能保持请勿继续操作。</li>
+</ol>
+<h3 id="责任及规范">责任及规范</h3>
+<p>机器人可与其他设备组成完整系统，本文档不包含完整系统的全部设计、安装与操作内容。完整系统安装的安全性取决于集成方式，使用者需依据所在国家/地区法律法规与安全规范，对完整系统进行设计与安装风险评估，并采取相应防护措施。</p>
+<p>开始使用本机械臂即视为已阅读、理解并接受本手册及安全信息全部条款。使用者承诺对自身行为及后果负责，仅将机械臂用于正当目的。对违反使用要求或不可抗力导致的人身伤害、事故、财产损失等，我司不承担相应责任。使用者需履行但不限于：对完整系统做风险评估、编制操作规程、建立安全措施、确认系统设计安装无误、不擅自修改安全措施。</p>
+<h3 id="风险评估">风险评估</h3>
+<p>风险评估应考虑正常使用及可预见的误操作下人员与机器人之间所有潜在接触，例如：</p>
+<ul>
+<li>使用尖锐末端执行器或工具连接器的危险；</li>
+<li>处理有毒或其他有害物质的危险；</li>
+<li>手指被机械臂底座或关节夹住的危险；</li>
+<li>被机械臂碰撞的危险；</li>
+<li>末端工具固定不到位、负载超出范围导致坠落的危险；</li>
+<li>机械臂负载与坚固表面之间冲击的危险。</li>
+</ul>
+<p>使用者须通过风险评估判断相关危险是否构成不可接受的风险并采取相应措施。机械臂不适合无专业人员指导且不具备完全民事行为能力的人士使用。</p>
+<hr />
+<h1 id="技术规格">技术规格</h1>
+<h2 id="通用规格">通用规格</h2>
+<table>
+<thead>
+<tr class="header">
+<th>参数名</th>
+<th>参数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>产品名称</td>
+<td>LITEARM SE 7 自由度协作机械臂</td>
+</tr>
+<tr class="even">
+<td>安装方式</td>
+<td>正装 / 侧装 / 倒装</td>
+</tr>
+<tr class="odd">
+<td>自由度</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td>有效负载/最大负载</td>
+<td>3 kg / 5 kg</td>
+</tr>
+<tr class="odd">
+<td>自重</td>
+<td>5.6 kg</td>
+</tr>
+<tr class="even">
+<td>重复定位精度</td>
+<td>±0.1 mm</td>
+</tr>
+<tr class="odd">
+<td>工作半径</td>
+<td>650 mm</td>
+</tr>
+<tr class="even">
+<td>供电电压</td>
+<td>DC 24 V</td>
+</tr>
+<tr class="odd">
+<td>额定功率</td>
+<td>430 W</td>
+</tr>
+<tr class="even">
+<td>速度倍率</td>
+<td>0.6 ~ 1.0</td>
+</tr>
+<tr class="odd">
+<td>电源适配</td>
+<td>600 W（带泄放）</td>
+</tr>
+<tr class="even">
+<td>控制方式</td>
+<td>板载控制板（随臂交付）</td>
+</tr>
+<tr class="odd">
+<td>通讯方式</td>
+<td>USB（上位机 PC ↔︎ 控制板）+ CAN（控制板 ↔︎ 关节，板内总线，用户不接线、不配置）</td>
+</tr>
+<tr class="even">
+<td>材质</td>
+<td>金属 + 高强度工程塑料复合机身</td>
+</tr>
+</tbody>
+</table>
+<h2 id="控制板规格">控制板规格</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>参数名</th>
+<th>参数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>名称</td>
+<td>控制板（随臂交付）</td>
+</tr>
+<tr class="even">
+<td>作用</td>
+<td>承担轨迹规划、运动学、动力学与控制律，并管理急停、软限位等安全兜底</td>
+</tr>
+<tr class="odd">
+<td>固件版本</td>
+<td>出厂固件版本串形如 <code>Litearm1.5.0-7J</code>（<code>Litearm</code> + 三段版本号 + <code>-7J</code>，7J 表示七轴），SDK 要求 <code>Litearm1.5.0</code> 及以上</td>
+</tr>
+<tr class="even">
+<td>供电输入</td>
+<td>DC 24 V（XT60 接口）</td>
+</tr>
+<tr class="odd">
+<td>上位机接口</td>
+<td>USB（虚拟串口）</td>
+</tr>
+<tr class="even">
+<td>关节接口</td>
+<td>接机械臂下方接口</td>
+</tr>
+<tr class="odd">
+<td>参数存储</td>
+<td>板载存储，出厂已完成逐台动力学标定</td>
+</tr>
+</tbody>
+</table>
+<h2 id="关节参数">关节参数</h2>
+<p>为保证运行安全，机械臂关节角度限位带有软件软限位，<strong>固化在控制板固件中</strong>，运动时由固件实时校验。可通过 SDK 逐关节查询与配置（修改前需安全评估）：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="cf">for</span> jp <span class="kw">in</span> arm.params.all_joint_params():      <span class="co"># 逐关节读回</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="bu">print</span>(jp.idx, jp.q_min, jp.q_max)         <span class="co"># 也可单轴读：arm.params.get_joint_param(0)</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>arm.params.set_joint_limits(<span class="dv">0</span>, <span class="op">-</span><span class="fl">2.8</span>, <span class="fl">2.8</span>)     <span class="co"># 逐关节写：只允许收窄</span></span></code></pre></div>
+<blockquote>
+<p><code>params.set_joint_limits()</code> <strong>只允许把限位收窄</strong>，写回当前值会被判为放宽请求并拒绝，写入后需 <code>save_params()</code> 才持久化（写 Flash，不可逆）。下表为出厂标称范围，实际生效值请以 SDK 读回的为准：</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>关节（URDF）</th>
+<th>SDK 索引</th>
+<th>角色</th>
+<th>运动范围（rad）</th>
+<th>运动范围（°）</th>
+<th>最大速度（标称）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Joint1</td>
+<td>q[0]</td>
+<td>基座旋转</td>
+<td>−2.809547 ~ 2.809547</td>
+<td>−161° ~ 161°</td>
+<td>180°/s</td>
+</tr>
+<tr class="even">
+<td>Joint2</td>
+<td>q[1]</td>
+<td>肩部俯仰</td>
+<td>−1.727547 ~ 1.727547</td>
+<td>−99° ~ 99°</td>
+<td>180°/s</td>
+</tr>
+<tr class="odd">
+<td>Joint3</td>
+<td>q[2]</td>
+<td>肘部俯仰</td>
+<td>−2.809547 ~ 2.809547</td>
+<td>−161° ~ 161°</td>
+<td>180°/s</td>
+</tr>
+<tr class="even">
+<td>Joint4</td>
+<td>q[3]</td>
+<td>腕部旋转</td>
+<td>−3.071547 ~ 0.017547</td>
+<td>−176° ~ +1°</td>
+<td>225°/s</td>
+</tr>
+<tr class="odd">
+<td>Joint5</td>
+<td>q[4]</td>
+<td>腕部俯仰</td>
+<td>−2.809547 ~ 2.809547</td>
+<td>−161° ~ 161°</td>
+<td>225°/s</td>
+</tr>
+<tr class="even">
+<td>Joint6</td>
+<td>q[5]</td>
+<td>腕部偏转</td>
+<td>−1.553547 ~ 1.553547</td>
+<td>−89° ~ 89°</td>
+<td>225°/s</td>
+</tr>
+<tr class="odd">
+<td>Joint7</td>
+<td>q[6]</td>
+<td>末端旋转</td>
+<td>−1.553547 ~ 1.553547</td>
+<td>−89° ~ 89°</td>
+<td>225°/s</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>说明</strong> 1. 关节速度：URDF 中默认速度上限为 1 rad/s，仅为仿真参考值，不代表最大能力。 2. Joint4 区间：软限位为不对称区间（−176° ~ +1°）。 3. 关节最大扭矩：肩部最大约 97 N·m；其余关节扭矩上限以固件逐关节参数 <code>tau_max</code> 为准（SDK <code>arm.params.get_joint_param(idx).value.tau_max</code> 读回），URDF 中 <code>effort</code> 参考值为 Joint1/2=30、Joint3/4=9、Joint5/6/7=3.5 N·m。</p>
+</blockquote>
+<h2 id="图示">图示</h2>
+<h3 id="机械臂零位与坐标系">机械臂零位与坐标系</h3>
+<ul>
+<li>机械臂默认安装（台面安装、基座水平）时，基坐标系以基座安装面中心为原点，Z 轴竖直向上（与默认重力方向相反），X/Y 轴按右手定则位于安装面内；工具坐标系（TCP）位于末端法兰处，基坐标系与工具坐标系的标注如图2所示。实际朝向请以 URDF/仿真（base_link 与 ee_frame_link）或实机为准。</li>
+</ul>
+<figure>
+<img src="../LITEARM_SE_images/placeholders/ph_pm_coord.png" alt="" /><figcaption>零位与坐标系标注图</figcaption>
+</figure>
+<ul>
+<li>安装方向（正装 / 侧装 / 倒装）通过重力补偿参数体现，可经 SDK <code>set_gravity_vector(g)</code> 指定重力方向、<code>set_gravity_scale(gs)</code> 逐关节缩放重力前馈；配置错误会直接导致重力补偿失准。</li>
+</ul>
+<h3 id="关节旋转方向">关节旋转方向</h3>
+<p>各关节绕其 URDF 定义的旋转轴、按<strong>右手定则</strong>确定正方向，各关节旋转方向标注如图3所示。可在 PyBullet / MuJoCo 仿真中或上位机实时控制下验证各关节旋转方向。</p>
+<figure>
+<img src="../LITEARM_SE_images/placeholders/ph_pm_rotdir.png" alt="" /><figcaption>关节旋转方向标注图</figcaption>
+</figure>
+<hr />
+<h1 id="常见问题">常见问题</h1>
+<h2 id="qa">Q&amp;A</h2>
+<p><strong>问：机械臂有哪些控制/运行模式？</strong> 答：LITEARM SE 支持关节空间运动（<code>movej</code>）、笛卡尔直线/圆弧/多路点运动（<code>move_l</code>/<code>move_c</code>/<code>move_path</code>）、笛卡尔点到点（<code>move_p</code>）、回零（<code>home</code>）、零重力拖动示教（<code>zero_g</code>）等（详见开发手册）。运动前确认机械臂处于使能且非急停状态。</p>
+<p><strong>问：关节空间和笛卡尔空间有什么区别？</strong> 答：关节空间直接控制每个关节角度，简单直接、不易出现奇异点，适合点到点运动；笛卡尔空间控制末端位姿，适合需要直线/圆弧等精确轨迹的任务，规划更复杂且可能遇到奇异点。</p>
+<p><strong>问：上电后/复位后机械臂无法运动？</strong> 答：请依次检查：机械臂是否处于急停或故障状态、是否已使能。按安全流程依次执行 <code>reset()</code>、<code>clear_faults()</code>、<code>enable()</code> 后再运动；若 <code>enable()</code> 被拒，请读取 <code>get_state()</code> 中的故障轴信息（详见开发手册）。</p>
+<p><strong>问：如何安全地进行拖拽示教？</strong> 答：进入零重力模式（<code>zero_g()</code>）后双手缓慢拖动机械臂到目标姿态；拖动范围不要超过关节软限位；停止拖动后确认机械臂能保持姿态；示教完成后退出零重力模式并让机械臂保持/回到安全姿态。</p>
+<p><strong>问：为什么 <code>disable()</code> 后机械臂会掉落？</strong> 答：失能后关节不再输出力矩，机械臂会在重力作用下坠落。请在机械臂有支撑、无人员靠近时操作，或先 <code>home()</code> 回到安全姿态。</p>
+<p><strong>问：连接不上机械臂怎么办？</strong> 答：依次检查：USB 线是否接在控制板与上位机之间；<code>lsusb</code> 中是否存在 VID:PID 为 <code>1d50:606f</code> 的设备（没有则查线缆与供电）；Linux 下当前用户是否已加入 <code>dialout</code> 组；串口是否被另一个进程占用；固件版本是否达到 <code>Litearm1.5.0</code>。仍无法解决请联系技术支持。</p>
+<p><strong>问：技术支持渠道？</strong> 答：NEXFORM ROBOTICS 技术团队；GitHub 组织 <a href="https://github.com/nexform-tech">github.com/nexform-tech</a>（Issues）。</p>
+<hr />
+<h1 id="参考文档与技术支持">参考文档与技术支持</h1>
+<p>本手册覆盖产品外观、技术规格与安全须知。<strong>机械装配与电气连接已单独成册</strong>，请配合阅读：</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>文档</th>
+<th>内容</th>
+<th>地址</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LITEARM-SE 机械臂安装教程</td>
+<td>开箱清点、桌面固定、立柱安装、电气连接与接线自检</td>
+<td><a href="https://github.com/nexform-tech/litearm-setup" class="uri">https://github.com/nexform-tech/litearm-setup</a></td>
+</tr>
+<tr class="even">
+<td>LITEARM SE 软件开发手册</td>
+<td>SDK（Python / C++ / ROS 2）、上位机软件、状态与报错</td>
+<td><a href="https://github.com/nexform-tech/litearm-python" class="uri">https://github.com/nexform-tech/litearm-python</a></td>
+</tr>
+</tbody>
+</table>
+<p>SDK、上位机软件（LiteArm Studio）与其它相关文档的下载地址：<a href="https://github.com/nexform-tech" class="uri">https://github.com/nexform-tech</a></p>
+<hr />
+<blockquote>
+<p><strong>文档结束</strong>　如有疑问或需要补充信息，请联系 NEXFORM ROBOTICS 技术团队。</p>
+</blockquote>
+</article>
+    <article id="doc-dev" class="doc" style="display:none"><section class="doc-cover">
+<p class="cover-brand">
+NEXFORM ROBOTICS
+</p>
+<h1 class="cover-title">
+LITEARM SE
+</h1>
+<p class="cover-sub">
+</p>
+<table class="cover-meta">
+</table>
+<p class="cover-foot">
+NEXFORM ROBOTICS
+</p>
+</section>
+<h2 id="修订记录">修订记录</h2>
+<table>
+<thead>
+<tr class="header">
+<th>版本</th>
+<th>修订时间</th>
+<th>修订记录</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>V1.0.4</td>
+<td>2026-10-16</td>
+<td>控制架构改为板载控制板 + USB 直连，按 litearm-python 重写 SDK 章节；精简上位机章节</td>
+</tr>
+<tr class="even">
+<td>V1.0.3</td>
+<td>2026-09-03</td>
+<td>更新上位机说明</td>
+</tr>
+<tr class="odd">
+<td>V1.0.2</td>
+<td>2026-08-20</td>
+<td>更新 SDK 说明</td>
+</tr>
+<tr class="even">
+<td>V1.0.1</td>
+<td>2026-07-15</td>
+<td>新建 LITEARM SE 软件开发手册框架</td>
+</tr>
+</tbody>
+</table>
+<h1 id="前言">前言</h1>
+<p>SDK、上位机软件与配套文档均托管在 GitHub：</p>
+<ul>
+<li><strong>NEXFORM ROBOTICS 组织主页</strong>：<a href="https://github.com/nexform-tech" class="uri">https://github.com/nexform-tech</a></li>
+<li><strong>机械臂开箱与安装教程</strong>（开箱清点、桌面固定、立柱安装、电气连接）：<a href="https://github.com/nexform-tech/litearm-setup" class="uri">https://github.com/nexform-tech/litearm-setup</a></li>
+</ul>
+<blockquote>
+<p>本手册只讲软件。机械装配与电气连接不在本手册范围内，请从上面的安装教程获取。</p>
+</blockquote>
+<h2 id="硬件组成">硬件组成</h2>
+<p>从软件开发视角，使用 LITEARM SE 需要以下硬件/组件：</p>
+<table>
+<thead>
+<tr class="header">
+<th>组成</th>
+<th>说明</th>
+<th>开发要点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>机械臂本体</td>
+<td>LITEARM SE，7 关节</td>
+<td>经配套线缆接至控制板</td>
+</tr>
+<tr class="even">
+<td>控制板</td>
+<td>板载控制器，随臂交付，运行固件</td>
+<td>承担轨迹规划、正逆运动学、动力学与控制律；上位机经 USB 直连</td>
+</tr>
+<tr class="odd">
+<td>上位机 PC</td>
+<td>运行 Python / C++ / ROS 2 / 仿真</td>
+<td>只需一个可用 USB 口，无需 CAN 硬件、无需配置网络</td>
+</tr>
+<tr class="even">
+<td>电源模块</td>
+<td>600 W（带泄放），选配</td>
+<td>输出经 XT60 接至控制板（接线步骤见《LITEARM-SE 机械臂安装教程》）</td>
+</tr>
+<tr class="odd">
+<td>末端设备（可选）</td>
+<td>夹爪等</td>
+<td>由对应产品的 SDK 驱动</td>
+</tr>
+</tbody>
+</table>
+<p>控制链路：<code>客户端程序 → USB（虚拟串口）→ 控制板固件 → CAN（板内）→ 关节</code>。<strong>规划与控制全部在控制板固件中完成</strong>，PC 侧 SDK 只负责编解码帧、下发命令与判到位。每个 <code>Arm</code> 会话独占一个串口，因此同一台机械臂同一时刻只能有一个进程持有它。</p>
+<h2 id="单位说明">单位说明</h2>
+<p>与 SDK / 产品手册一致：位置单位为 m、姿态与关节角单位为 rad、速度 1.0 表示归一化速度（关节运动时由固件按内部规划比例解释，详见「位姿、单位与运动学」一节），质量 kg、力/扭矩 N / N·m。</p>
+<p>位姿使用 <strong>6 个数</strong>：<code>pose = (x, y, z, rx, ry, rz)</code>，前 3 个为位置（m），后 3 个为姿态（rad，绕基坐标系 X/Y/Z 轴的 RPY 角）。list 与 tuple 均可，例如 <code>(0.30, 0.0, 0.40, 3.1416, 0.0, 0.0)</code>。SDK 也兼容「位置 3 个数 + 3×3 旋转矩阵」的写法，详见「位姿、单位与运动学」一节。</p>
+<h2 id="安全须知">安全须知</h2>
+<h3 id="简介">简介</h3>
+<p>二次开发时除硬件安全外，还需注意软件侧安全语义。开发/调试人员应经过培训，理解关节空间与笛卡尔空间的运动差异、使能/失能与急停语义，以及软限位与碰撞检测的作用。安全细节以《LITEARM SE 产品手册》第 1.3 节为准。</p>
+<h3 id="安全警示标志">安全警示标志</h3>
+<p>本手册及配套产品手册使用如下四类安全警示标志（图样以产品随附标识为准）：</p>
+<div class="safety-list" aria-label="安全警示标志">
+<div class="safe-item">
+<p class="safe-text">
+<strong>危险</strong>：用于可能导致人员伤亡或设备严重损坏的危险情况。
+</p>
+<img class="s-icon" src="../LITEARM_SE_images/safety/danger.png" alt="危险">
+</div>
+<div class="safe-item">
+<p class="safe-text">
+<strong>警告</strong>：用于如不避免，可导致人员伤亡或设备严重损坏的危险情况。
+</p>
+<img class="s-icon" src="../LITEARM_SE_images/safety/warning.png" alt="警告">
+</div>
+<div class="safe-item">
+<p class="safe-text">
+<strong>高温</strong>：用于存在高温部件、接触可能造成灼烫伤害或设备损坏的危险情况。
+</p>
+<img class="s-icon" src="../LITEARM_SE_images/safety/high_temp.png" alt="高温">
+</div>
+<div class="safe-item">
+<p class="safe-text">
+<strong>注意</strong>：用于如不避免，可能导致人员伤害或设备损坏的一般警示。
+</p>
+<img class="s-icon" src="../LITEARM_SE_images/safety/notice.png" alt="注意">
+</div>
+</div>
+<h3 id="安全注意事项软件侧">安全注意事项（软件侧）</h3>
+<ol type="1">
+<li><strong><code>disable()</code> 会使电机关力，机械臂在重力作用下坠落</strong>，禁止在无支撑或人员靠近时调用；<code>enable()</code> 可使能并保持当前姿态。</li>
+<li>运动前确保急停可立即触达、工作区清空；首次运动用保守速度（如 <code>speed=0.1~0.2</code>）。</li>
+<li><code>home()</code> 与零重力拖动（<code>zero_g()</code>）具有特殊安全语义：<code>home()</code> 须先 <code>enable()</code>，且固件把其速度写死为 0.10；<code>zero_g()</code> 退出前必须把各关节推回软限位以内（越限锁存一旦生效不受使能门控、<code>reset()</code> 也清不掉）。</li>
+<li>修改 <code>params.set_joint_limits()</code> / <code>set_payload()</code> / <code>set_gravity_vector()</code> / <code>set_gravity_scale()</code> / <code>params.set_joint_param()</code> 等参数前应做安全评估；不正确的负载质量/质心或重力方向会导致补偿错误甚至失控。</li>
+<li>高频直接控制（<code>send_mit</code> / <code>send_mit_all</code> / <code>move_js</code> / <code>joint_follow</code>）绕过固件规划，属高级功能，仅由具备控制与安全经验的工程人员使用，且<strong>必须 ≥10 Hz 自行保活</strong>。</li>
+<li>下列命令会覆盖或抹掉该台设备的动力学标定且<strong>不可逆</strong>，不得在已标定的机械臂上执行：<code>save_params()</code>、<code>model.commit()</code>、<code>params.reset_factory()</code>、<code>model.revert()</code>。</li>
+<li>固件承担斜率限制、软限位、非法值拒绝、通信看门狗与急停兜底，<strong>不依赖上位机在线</strong>；但这只是硬性兜底，不能替代上层程序自身的参数校验。</li>
+<li>仿真通过不等于实机安全；迁移到实机仍需低速、低负载逐步验证。</li>
+</ol>
+<h3 id="责任及规范">责任及规范</h3>
+<p>用户对二次开发形成的完整系统的安全负责，进行风险评估与防护设计；对违反使用要求或不可抗力造成的损害，我司不承担相应责任。详见产品手册 1.3.4。</p>
+<h3 id="风险评估">风险评估</h3>
+<p>参照产品手册 1.3.5，软件触发类风险（如远端指令导致机械臂高速运动、负载坠落）也应纳入风险评估。</p>
+<hr />
+<h1 id="sdk-使用指南">SDK 使用指南</h1>
+<h2 id="简介-1">简介</h2>
+<p>LITEARM SE 软件侧采用 <strong>“客户端 SDK / 上层框架 → USB → 控制板固件 → CAN → 关节”</strong> 的分层架构。<strong>轨迹规划、正逆运动学、动力学与控制律全部在控制板固件中完成</strong>，PC 侧 SDK 只负责编解码帧、下发命令与判断是否到位。Python、C++ 客户端接口语义一致；ROS 2 与仿真适配均基于同一套控制链路。</p>
+<table>
+<thead>
+<tr class="header">
+<th>层级</th>
+<th>典型组件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>应用层</td>
+<td>用户 Python/C++ 程序、ROS 2 节点、LeRobot 策略</td>
+<td>业务逻辑、算法、轨迹或策略</td>
+</tr>
+<tr class="even">
+<td>SDK / 适配层</td>
+<td>litearm-python / litearm-cpp</td>
+<td>状态读取、运动控制、参数管理</td>
+</tr>
+<tr class="odd">
+<td>固件层</td>
+<td>控制板固件</td>
+<td>规划、运动学、动力学、控制律与安全兜底</td>
+</tr>
+<tr class="even">
+<td>硬件层</td>
+<td>控制板 + CAN + LITEARM SE 关节</td>
+<td>关节执行与状态反馈</td>
+</tr>
+</tbody>
+</table>
+<p><strong>连接约定</strong></p>
+<ul>
+<li>上位机与控制板之间<strong>只用一根 USB 线</strong>：USB CDC 虚拟串口，VID:PID <code>1d50:606f</code>，波特率 921600。<strong>无需配置 IP 或网络</strong>。</li>
+<li>端口可不指定——<code>Arm(port=None)</code> 会按 VID:PID 自动发现控制板；也可显式传入，如 <code>Arm(port="/dev/ttyACM0")</code>。SDK <strong>不读取任何环境变量</strong>。</li>
+<li>一次会话独占串口，同一台机械臂同一时刻只能被一个进程持有（详见「连接与最小示例」一节）。</li>
+<li>本文以 <strong>Python SDK（litearm-python）</strong> 为主线；C++、ROS 2 与仿真生态见「其他语言与软件生态概述」一节。</li>
+</ul>
+<h2 id="库相关依赖">库相关依赖</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>语言/框架</th>
+<th>库</th>
+<th>关键要求</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Python</td>
+<td>litearm-python</td>
+<td>Python ≥ 3.9；唯一依赖 <code>pyserial &gt;= 3.4</code>；无需 CAN 硬件</td>
+<td>主线</td>
+</tr>
+<tr class="even">
+<td>C++</td>
+<td>litearm-cpp</td>
+<td>C++17、CMake ≥ 3.14；无第三方依赖（标准库 + 平台串口 API）</td>
+<td>提供</td>
+</tr>
+<tr class="odd">
+<td>ROS 2</td>
+<td>litearm-ros2 / litearm-ros2-control</td>
+<td>ROS 2 Humble；ros2_control 版经 litearm-cpp 直接驱动</td>
+<td>提供</td>
+</tr>
+<tr class="even">
+<td>URDF/RViz</td>
+<td>litearm-description</td>
+<td>标准 URDF 描述包，供 RViz / MoveIt 2 / 仿真共用</td>
+<td>提供</td>
+</tr>
+<tr class="odd">
+<td>MoveIt 2</td>
+<td>litearm-moveit2</td>
+<td>ROS 2 Humble + MoveIt 2</td>
+<td>提供</td>
+</tr>
+<tr class="even">
+<td>MuJoCo</td>
+<td>litearm-mujoco</td>
+<td>pip 安装；<code>MujocoArm</code> 仿真接口</td>
+<td>提供</td>
+</tr>
+<tr class="odd">
+<td>PyBullet</td>
+<td>litearm-pybullet</td>
+<td>pip 安装；<code>PyBulletArm</code> 接口与 litearm-python 对齐</td>
+<td>提供</td>
+</tr>
+<tr class="even">
+<td>Isaac Sim</td>
+<td>litearm-isaacsim</td>
+<td>NVIDIA Isaac Sim 仿真环境</td>
+<td>提供</td>
+</tr>
+<tr class="odd">
+<td>LeRobot</td>
+<td>litearm-lerobot</td>
+<td>litearm-python；lerobot 数据集录制与策略适配</td>
+<td>提供</td>
+</tr>
+<tr class="even">
+<td>上位机</td>
+<td>litearm-studio</td>
+<td>Python 3.10+；图形化控制台</td>
+<td>提供</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>控制板固件版本需为 <code>Litearm1.5.0</code> 及以上。版本串形如 <code>Litearm1.5.0-7J</code>——<code>Litearm</code> + 三段版本号 + <code>-7J</code>（七轴）或 <code>-1J</code>（单轴台架）。版本过低或串不符合该命名约定时，<code>connect()</code> 会直接拒绝。</p>
+</blockquote>
+<h2 id="python-库安装与使用主线">Python 库安装与使用（主线）</h2>
+<h3 id="安装">安装</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="fu">git</span> clone https://github.com/nexform-tech/litearm-python.git</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="bu">cd</span> litearm-python</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="ex">pip</span> install -e .                  # 安装（正式交付建议锁定版本）</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="ex">python3</span> -c <span class="st">&quot;import litearm; print(litearm.__version__)&quot;</span>   # 验证</span></code></pre></div>
+<p>安装后同时提供命令行入口 <code>litearm-python</code>（等价写法 <code>python -m litearm</code>，见「只读属性与命令行」一节）。</p>
+<h3 id="依赖与运行环境">依赖与运行环境</h3>
+<ul>
+<li>Python：<strong>≥ 3.9</strong>。</li>
+<li>依赖：<strong><code>pyserial &gt;= 3.4</code>（唯一依赖）</strong>；不需要 numpy，不需要任何 CAN 硬件或中间件。</li>
+<li>驱动/权限：Linux 下需把当前用户加入串口权限组，重新登录后生效：</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="fu">sudo</span> usermod -aG dialout <span class="va">$USER</span></span></code></pre></div>
+<ul>
+<li>支持 Windows / Linux / macOS。</li>
+</ul>
+<h3 id="连接与最小示例先跑只读">连接与最小示例（先跑只读）</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="im">import</span> litearm <span class="im">as</span> pa</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="cf">with</span> pa.Arm().<span class="ex">connect</span>() <span class="im">as</span> arm:          <span class="co"># 不指定端口则按 VID:PID 自动发现控制板</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>    <span class="bu">print</span>(arm.firmware, arm.n)           <span class="co"># 固件版本串、关节数</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    state <span class="op">=</span> arm.get_state().value        <span class="co"># 读值要走 .value，见「读值」一节</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>    <span class="bu">print</span>(state.q, state.dq, state.tau)  <span class="co"># 关节角 / 速度 / 力矩</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>    <span class="bu">print</span>(arm.get_tcp().value)           <span class="co"># 当前末端位姿（6 个数）</span></span></code></pre></div>
+<p>要点：</p>
+<ul>
+<li><strong><code>Arm().connect()</code> 是唯一入口</strong>。<code>connect()</code> 返回时握手已完成，<code>arm.n</code> / <code>arm.firmware</code> 一定可用。</li>
+<li><code>Arm</code> 支持上下文管理器（<code>with</code>），退出自动 <code>close()</code>；也可手动连接后调用 <code>arm.close()</code>。<strong>每个会话背后有一条后台读线程，用完必须关闭</strong>。</li>
+<li>手动指定端口（多台设备或自动发现失败时）：<code>pa.Arm(port="/dev/ttyACM0").connect()</code>。</li>
+</ul>
+<h3 id="读值msg-信封与-robotstate">读值：<code>Msg</code> 信封与 <code>RobotState</code></h3>
+<p>11 个「读一帧」接口返回信封 <code>Msg</code>，<strong>数据本身在 <code>.value</code> 里</strong>——直接打印 <code>Msg</code> 看到的是信封，不是状态。</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="at">@dataclass</span>(frozen<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="kw">class</span> Msg(Generic[T]):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>    value: T          <span class="co"># 原始返回值（取不到帧时是 None）</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>    hz: <span class="bu">float</span>         <span class="co"># 这类帧在本会话的平均到达频率</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>    timestamp: <span class="bu">float</span>  <span class="co"># 最近一帧的本地时刻（从未收到为 0.0）</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a><span class="bu">print</span>(arm.get_state())            <span class="co"># Msg(value=RobotState(...), hz=100.2, timestamp=...)</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a><span class="bu">print</span>(arm.get_state().value.q)    <span class="co"># [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</span></span></code></pre></div>
+<ul>
+<li><code>get_state()</code> 消费控制板持续推送的状态帧（约 100 Hz），无往返开销。</li>
+<li><code>get_status_now()</code> 会<strong>主动发一条查询</strong>，可用于确认链路活性；本会话还没收到过任何帧时它抛 <code>MotionTimeoutError</code>。</li>
+<li><strong><code>hz == 0.0</code> 且 <code>timestamp == 0.0</code> 表示这类帧从没到过</strong>，而不是“链路慢”。</li>
+</ul>
+<p><code>RobotState</code> 主要字段与派生属性：</p>
+<table>
+<thead>
+<tr class="header">
+<th>字段 / 属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>mode</code> / <code>mode_name</code></td>
+<td>当前模式及其名称</td>
+</tr>
+<tr class="even">
+<td><code>flags</code> / <code>flag_names</code></td>
+<td>标志位与名字</td>
+</tr>
+<tr class="odd">
+<td><code>seq</code></td>
+<td>状态帧到达序号，用来判断数据流是否还在动</td>
+</tr>
+<tr class="even">
+<td><code>joints</code></td>
+<td><code>list[JointState]</code>，每项含 <code>q</code> / <code>dq</code> / <code>tau</code> / <code>t_mos</code> / <code>t_coil</code> / <code>err</code></td>
+</tr>
+<tr class="odd">
+<td><code>joint_fault</code></td>
+<td>逐轴掉线位图</td>
+</tr>
+<tr class="even">
+<td><code>n</code> / <code>enabled</code> / <code>cart_busy</code></td>
+<td>关节数 / 是否使能 / 笛卡尔运动是否在进行</td>
+</tr>
+<tr class="odd">
+<td><code>q</code> / <code>dq</code> / <code>tau</code></td>
+<td>各关节角（rad）、角速度（rad/s）、力矩（N·m）</td>
+</tr>
+<tr class="even">
+<td><code>fault_axes</code> / <code>faulted</code> / <code>fault_detail</code></td>
+<td>故障轴与故障详情</td>
+</tr>
+</tbody>
+</table>
+<h3 id="运动控制关节-笛卡尔">运动控制（关节 / 笛卡尔）</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="im">import</span> litearm <span class="im">as</span> pa</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="cf">with</span> pa.Arm().<span class="ex">connect</span>() <span class="im">as</span> arm:</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>    arm.enable()                                    <span class="co"># 运动之前必须先使能</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>    <span class="co"># 关节空间：q 为 7 元素关节角（rad），固件规划 S 曲线并自己走完</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>    arm.movej([<span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>], speed<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>    arm.movej_sync([<span class="fl">0.3</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>], speed<span class="op">=</span><span class="fl">0.2</span>)   <span class="co"># 各轴一起到位</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>    <span class="co"># 笛卡尔直线：位姿 = 6 个数（位置 3 + RPY 3）</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>    P1 <span class="op">=</span> (<span class="fl">0.30</span>, <span class="fl">0.0</span>, <span class="fl">0.40</span>, <span class="fl">3.1416</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>    P2 <span class="op">=</span> (<span class="fl">0.32</span>, <span class="fl">0.0</span>, <span class="fl">0.42</span>, <span class="fl">3.1416</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>    P3 <span class="op">=</span> (<span class="fl">0.34</span>, <span class="fl">0.0</span>, <span class="fl">0.44</span>, <span class="fl">3.1416</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>    arm.move_l(P2, speed<span class="op">=</span><span class="fl">0.5</span>)                       <span class="co"># 直线</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a>    arm.move_path([P1, P2, P3], speed<span class="op">=</span><span class="fl">0.5</span>)          <span class="co"># 依次过路点（尖角）</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a>    arm.move_c(arm.get_tcp().value, P2, P3)         <span class="co"># 圆弧（起点必须是实测 TCP）</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true"></a>    arm.home()                                      <span class="co"># 回零</span></span></code></pre></div>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>接口</th>
+<th>末端走什么 / 说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>movej(q, speed=1.0)</code></td>
+<td>关节空间单发，固件规划 S 曲线并走完，到位后静止保持。<strong>不校验关节限位</strong>，越限目标会被固件截断后走满行程</td>
+</tr>
+<tr class="even">
+<td><code>movej_sync(q, speed=1.0)</code></td>
+<td>关节空间同步点到点，各轴一起到位</td>
+</tr>
+<tr class="odd">
+<td><code>home(*, timeout=None)</code></td>
+<td>回零。<strong>须先 <code>enable()</code></strong>；固件把速度写死为 0.10，不接受 <code>speed</code> 参数（写 <code>arm.home(speed=0.3)</code> 会抛 <code>TypeError</code>）</td>
+</tr>
+<tr class="even">
+<td><code>move_js(q, dq=None, tau_ff=None)</code></td>
+<td>低层关节流，绕过规划；需调用方 ≥10 Hz 重发（见「透传与伺服」一节）</td>
+</tr>
+<tr class="odd">
+<td><code>move_p(pose, speed=1.0, pos_tol=0.006, rpy_tol=0.03)</code></td>
+<td>关节空间插值的点到点，<strong>末端不走直线</strong>；只收单个位姿</td>
+</tr>
+<tr class="even">
+<td><code>move_l(pose, speed=1.0, wait=True)</code></td>
+<td>笛卡尔直线（位置线性 + 姿态球面插值）</td>
+</tr>
+<tr class="odd">
+<td><code>move_c(pose_start, pose_via, pose_goal, speed=1.0, wait=True)</code></td>
+<td>圆弧（三点定圆，<code>via</code> 的姿态被忽略）；<code>start</code> 必须与调用时的实测 TCP 一致</td>
+</tr>
+<tr class="even">
+<td><code>move_path(poses, speed=1.0, wait=True)</code></td>
+<td>依次经过多个路点，<strong>转角是尖角</strong>（无倒角）</td>
+</tr>
+<tr class="odd">
+<td><code>poll_cart()</code></td>
+<td>查询笛卡尔进度的待认领队列（配合 <code>wait=False</code>）</td>
+</tr>
+<tr class="even">
+<td><code>set_speed(percent)</code></td>
+<td>全局、<strong>持续</strong>的调速器。<code>percent</code> 是 <strong>0..100 的整数百分比</strong>——<code>set_speed(1)</code> 是 1% 速度，不是“满速”</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><code>movej</code> / <code>movej_sync</code> / <code>move_p</code> / <code>home</code> 返回 <code>RobotState</code>；<code>move_l</code> / <code>move_c</code> / <code>move_path</code> 返回 <code>CartPlan</code>。<code>speed</code> 取 0~1 归一化比例（<code>set_speed</code> 除外）。笛卡尔规划被拒时抛 <code>CartesianPlanError</code>，<strong>整条拒绝、机械臂一步没动</strong>。</p>
+<p><strong><code>movej</code> 返回 ≠ 停稳</strong>：残差约 0.012 rad（在到位容差内）。需要精确停稳时请自行加稳定延时或读状态确认。</p>
+</blockquote>
+<h3 id="位姿单位与运动学">位姿、单位与运动学</h3>
+<ul>
+<li><strong>位姿格式</strong>：<code>pose = (x, y, z, rx, ry, rz)</code>，前 3 个为位置（m），后 3 个为姿态（rad，绕基坐标系 X/Y/Z 轴的 RPY 角）。list 与 tuple 均可。<strong>注意不是欧拉角以外的旋转矩阵形式，也不是四元数</strong>。</li>
+<li>SDK 也兼容「位置 3 个数 + 3×3 旋转矩阵」的写法：</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>arm.move_p(([<span class="fl">0.30</span>, <span class="fl">0.0</span>, <span class="fl">0.35</span>], [[<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>]]))</span></code></pre></div>
+<ul>
+<li><strong>逆运动学</strong>：<code>ik(pose, q_seed=None, timeout=3.0) -&gt; list[float]</code>，失败抛 <code>IKError</code>。它可能返回另一个同样有效的分支，与 <code>q_seed</code> 差得远未必是错误。</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>q <span class="op">=</span> arm.ik((<span class="fl">0.30</span>, <span class="fl">0.0</span>, <span class="fl">0.35</span>, <span class="fl">3.1416</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>))</span></code></pre></div>
+<ul>
+<li><strong>没有 <code>fk(q)</code></strong>：PC 侧不带运动学模型（正运动学只有固件能做）。读取当前末端位姿请用 <code>get_tcp()</code>。</li>
+</ul>
+<h3 id="生命安全与状态控制">生命安全与状态控制</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>功能</th>
+<th>接口</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>使能</td>
+<td><code>enable(attempts=12)</code></td>
+<td>使能全部关节并保持当前姿态；重试只对固件白名单里可重试的码生效</td>
+</tr>
+<tr class="even">
+<td>失能</td>
+<td><code>disable()</code></td>
+<td>切断位置环，<strong>机械臂不再被托住，会在重力作用下下落</strong></td>
+</tr>
+<tr class="odd">
+<td>急停</td>
+<td><code>emergency_stop()</code></td>
+<td>单帧、单向、不读状态，<strong>唯一没有前置条件的入口</strong></td>
+</tr>
+<tr class="even">
+<td>复位</td>
+<td><code>reset()</code></td>
+<td>清故障 + 重锚控制环（<strong>不是 MCU 重启</strong>，同一对象仍可用）</td>
+</tr>
+<tr class="odd">
+<td>清故障</td>
+<td><code>clear_faults()</code></td>
+<td>只清 RAM 故障位，不写 Flash</td>
+</tr>
+<tr class="even">
+<td>模式</td>
+<td><code>set_motion_mode(mode)</code> / <code>park()</code></td>
+<td>固件只认 <code>0</code>，其它值本地抛 <code>InvalidCommandError</code>；<code>park()</code> 等价于 <code>set_motion_mode(0)</code></td>
+</tr>
+<tr class="odd">
+<td>零重力</td>
+<td><code>zero_g()</code></td>
+<td>上下文管理器，重力补偿下自由拖动（拖拽示教），见「拖动示教（零重力）」一节</td>
+</tr>
+</tbody>
+</table>
+<h3 id="参数配置与前馈调参">参数配置与前馈调参</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>功能</th>
+<th>接口</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>负载</td>
+<td><code>set_payload(mass, com=(0.0, 0.0, 0.0))</code></td>
+<td>末端负载质量（kg）与质心；<strong>补偿正确性依赖此参数</strong>，换负载必须重设</td>
+</tr>
+<tr class="even">
+<td>重力方向</td>
+<td><code>set_gravity_vector(g)</code></td>
+<td>基座安装方向（正装/侧装/倒装）通过重力方向体现</td>
+</tr>
+<tr class="odd">
+<td>重力前馈</td>
+<td><code>set_gravity_scale(gs)</code> / <code>set_inertia_scale(isc)</code></td>
+<td>逐关节缩放重力/惯量前馈，长度须等于关节数</td>
+</tr>
+<tr class="even">
+<td>前馈开关</td>
+<td><code>set_ff_mask(mask)</code> / <code>get_ff_mask()</code> / <code>ff_preset(preset)</code></td>
+<td><code>preset</code>：0 全关 / 1 出厂 / 2 全开</td>
+</tr>
+<tr class="odd">
+<td>前馈向量/标量</td>
+<td><code>set_ff_vec(item, values)</code> / <code>set_ff_scalar(item, sub, value)</code> / <code>get_ff_vec(item)</code> / <code>get_ff_scalar(item, sub=0)</code></td>
+<td>读写动力学/控制律参数（<code>item</code> / <code>sub</code> 语义以固件参数表为准）</td>
+</tr>
+<tr class="even">
+<td>关节参数</td>
+<td><code>arm.params.set_joint_param(idx, kp, kd, tau_max)</code> / <code>get_joint_param(idx)</code> / <code>all_joint_params()</code></td>
+<td>逐关节 kp / kd / 扭矩上限；修改前安全评估</td>
+</tr>
+<tr class="odd">
+<td>关节限位</td>
+<td><code>arm.params.set_joint_limits(idx, q_min, q_max)</code></td>
+<td>软限位；<strong>只允许收窄</strong>，写回当前值会被判为放宽请求并拒绝</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>以上写入的都是 RAM，需要掉电保持时调用 <code>save_params()</code> 写 Flash（<strong>不可逆</strong>）。</p>
+</blockquote>
+<h3 id="拖动示教零重力">拖动示教（零重力）</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>arm.enable()                        <span class="co"># 进入前必须已使能</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="cf">with</span> arm.zero_g():</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a>    <span class="bu">input</span>(<span class="st">&quot;拖动机械臂，然后回车&quot;</span>)</span></code></pre></div>
+<ul>
+<li><code>zero_g()</code> 是上下文管理器（由 <code>zero_g_start()</code> + <code>zero_g_stop()</code> 组合而成），进入后固件用虚拟弹簧与阻尼让机械臂“变软”，可徒手拖动示教。</li>
+<li>保活由 SDK 后台线程按 <code>period</code>（默认 0.04 s，须在 <code>[0.005, 0.10)</code> 内）自动重发，调用方不用管。</li>
+<li>保活期间其它<strong>动作</strong>命令会被拒（急停、失能例外；查询类不受限）。</li>
+<li><strong>退出前必须把各关节推回软限位以内</strong>：零重力会跳过位置越限锁存，而一旦退出，锁存立刻生效且不受使能门控、<code>reset()</code> 也清不掉。</li>
+<li>退出是异步的，<code>zero_g_stop()</code> 返回后固件侧还要一点时间收尾；只读属性 <code>zero_g_active</code> / <code>zero_g_error</code> 可查状态。</li>
+</ul>
+<h3 id="透传与伺服">透传与伺服</h3>
+<p>绕过固件规划，直接以 MIT 参数逐帧驱动关节——<strong>调用方必须自己保活，≥10 Hz 重发</strong>，否则 0.1 s 看门狗进入 fail-soft（降刚度 + 力矩归零），机械臂会在重力下缓慢塌下去。</p>
+<table>
+<thead>
+<tr class="header">
+<th>接口</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>send_mit(idx, q, dq, kp, kd, tau)</code></td>
+<td>单关节 MIT 五参数逐帧直接控制</td>
+</tr>
+<tr class="even">
+<td><code>send_mit_all(q, dq, kp, kd, tau)</code></td>
+<td>全关节；五个数组长度都必须等于关节数，且必须是有限数</td>
+</tr>
+<tr class="odd">
+<td><code>joint_follow(q, dq, kp, kd)</code></td>
+<td>帧里不带前馈的 <code>send_mit_all</code>，前馈由固件每拍自己算，跟随环因此省掉一次往返</td>
+</tr>
+<tr class="even">
+<td><code>move_js(q, dq=None, tau_ff=None)</code></td>
+<td>低层关节流；<code>dq</code> 是速度参考，不是速率上限</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>本组入口在真机上未经完整验证，请谨慎使用。任何其它运动/停止命令都会结束当前透传会话。</p>
+</blockquote>
+<h3 id="关节参数动力学模型数据采集与固件自检">关节参数、动力学模型、数据采集与固件自检</h3>
+<p>四个子命名空间对象，均为 <code>arm.</code> 下的属性：</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>对象</th>
+<th>主要接口</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>arm.params</code></td>
+<td><code>set_joint_param(idx, kp, kd, tau_max)</code>、<code>set_joint_limits(idx, q_min, q_max)</code>、<code>get_joint_param(idx)</code>、<code>all_joint_params()</code>、<code>reset_factory()</code></td>
+<td>关节级参数（kp / kd / 扭矩上限 / 软限位）</td>
+</tr>
+<tr class="even">
+<td><code>arm.model</code></td>
+<td><code>probe()</code>、<code>get_body(idx)</code>、<code>set_body(idx, vals)</code>、<code>get_gravity(q)</code>、<code>status()</code>、<code>commit(expected_mask)</code>、<code>revert()</code></td>
+<td>动力学模型的在线导入与回滚</td>
+</tr>
+<tr class="odd">
+<td><code>arm.log</code></td>
+<td><code>start(n_ticks)</code>、<code>stop()</code>、<code>reader()</code>、<code>capture(n_ticks)</code>、<code>dump(path)</code></td>
+<td>300 Hz 控制拍采集（<code>LOG_MAX_SAMPLES = 2400</code>，约 8 s 记满自停）</td>
+</tr>
+<tr class="even">
+<td><code>arm.diag</code></td>
+<td><code>kin_bench()</code></td>
+<td>固件自检与 CAN 链路诊断计数</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="cf">for</span> jp <span class="kw">in</span> arm.params.all_joint_params():</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>    <span class="bu">print</span>(jp.idx, jp.kp, jp.q_min, jp.q_max)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>arm.log.start(<span class="dv">300</span>)                  <span class="co"># 录 300 拍后自停</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>r <span class="op">=</span> arm.log.reader()</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a><span class="cf">for</span> s <span class="kw">in</span> r.samples()[:<span class="dv">3</span>]:</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>    <span class="bu">print</span>(s.tick, s.q_ref, s.dq, s.tau)</span></code></pre></div>
+<blockquote>
+<p><code>arm.params.set_joint_limits()</code> <strong>只允许收窄</strong>，不幂等，不要拿它做读写回环。<code>arm.model.set_jm()</code>（改关节映射）建议永不调用——改错有乱飞风险，且本机唯一的恢复手段本身也不可逆。</p>
+</blockquote>
+<h3 id="授权固件升级与参数持久化">授权、固件升级与参数持久化</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>接口</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>license(timeout=1.0)</code></td>
+<td>读取授权记录（返回裸 <code>LicenseInfo</code>，不是 <code>Msg</code>）</td>
+</tr>
+<tr class="even">
+<td><code>activate(*, cust_id, issued, flags=0, mac, timeout=2.0)</code></td>
+<td>提交厂商签发的凭据；<strong>须先 <code>disable()</code></strong></td>
+</tr>
+<tr class="odd">
+<td><code>enter_dfu(timeout=0.3)</code></td>
+<td>免探针进入 ROM bootloader，用于刷写固件；<strong>唯一的终端态操作</strong></td>
+</tr>
+<tr class="even">
+<td><code>save_params()</code></td>
+<td>把当前 RAM 参数写入 Flash，<strong>不可逆</strong></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>设备出厂即锁定，<strong>未激活的机械臂 <code>enable()</code> 会被拒</strong>（其余命令照常，以便现场诊断），激活记录<strong>写一次、永不擦除</strong>。</li>
+<li><code>enter_dfu()</code> 后本 <code>Arm</code> 对象不可再用（所有入口抛 <code>ArmIsInDfuError</code>，<code>close()</code> 例外）；设备会重新枚举为 <code>0483:DF11</code>，需等待 USB 重新枚举后再刷写，刷完新建一个 <code>Arm</code>。</li>
+</ul>
+<h3 id="只读属性与命令行">只读属性与命令行</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="bu">print</span>(arm.n, arm.firmware, arm.fw_version)      <span class="co"># 关节数 / 版本串 / 版本元组</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="bu">print</span>(arm.q_tol, arm.dq_tol, arm.move_timeout)  <span class="co"># 到位判据与运动超时</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a><span class="bu">print</span>(arm.zero_g_active, arm.last_reset_reason)</span></code></pre></div>
+<p>命令行入口 <code>litearm-python</code>（等价写法 <code>python -m litearm</code>）：</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="ex">litearm-python</span> status                          # 只读</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="ex">litearm-python</span> fw                              # 版本串 + 轴数</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a><span class="ex">litearm-python</span> tcp                             # 当前位姿 + 帧率</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a><span class="ex">litearm-python</span> movej -0.1 0 0 0 0 0 0 --speed 0.3</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a><span class="ex">litearm-python</span> home</span></code></pre></div>
+<blockquote>
+<p><code>status</code> / <code>fw</code> / <code>tcp</code> 只读，其余会真的驱动机械臂。<code>movej</code> 的目标个数必须正好等于 <code>arm.n</code>。</p>
+</blockquote>
+<h3 id="核心-api-速查">核心 API 速查</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>类别</th>
+<th>接口</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>连接</td>
+<td><code>Arm(port=None)</code>、<code>connect()</code>、<code>close()</code>、<code>disconnect()</code>、<code>reconnect()</code></td>
+</tr>
+<tr class="even">
+<td>状态</td>
+<td><code>get_state()</code>、<code>get_status_now()</code>、<code>get_tcp()</code></td>
+</tr>
+<tr class="odd">
+<td>运动学</td>
+<td><code>ik(pose, q_seed=None)</code>（无 <code>fk()</code>）</td>
+</tr>
+<tr class="even">
+<td>运动</td>
+<td><code>movej()</code>、<code>movej_sync()</code>、<code>home()</code>、<code>move_p()</code>、<code>move_l()</code>、<code>move_c()</code>、<code>move_path()</code>、<code>poll_cart()</code>、<code>set_speed()</code></td>
+</tr>
+<tr class="odd">
+<td>安全</td>
+<td><code>enable()</code>、<code>disable()</code>、<code>emergency_stop()</code>、<code>reset()</code>、<code>clear_faults()</code>、<code>set_motion_mode()</code>、<code>park()</code></td>
+</tr>
+<tr class="even">
+<td>拖动示教</td>
+<td><code>zero_g()</code>、<code>zero_g_start()</code>、<code>zero_g_stop()</code></td>
+</tr>
+<tr class="odd">
+<td>透传</td>
+<td><code>move_js()</code>、<code>send_mit()</code>、<code>send_mit_all()</code>、<code>joint_follow()</code></td>
+</tr>
+<tr class="even">
+<td>前馈 / 动力学</td>
+<td><code>ff_preset()</code>、<code>set_ff_mask()</code>、<code>get_ff_mask()</code>、<code>set/get_ff_vec()</code>、<code>set/get_ff_scalar()</code>、<code>set_gravity_vector()</code>、<code>set_gravity_scale()</code>、<code>set_inertia_scale()</code>、<code>set_payload()</code></td>
+</tr>
+<tr class="odd">
+<td>关节参数</td>
+<td><code>arm.params.*</code></td>
+</tr>
+<tr class="even">
+<td>动力学模型</td>
+<td><code>arm.model.*</code></td>
+</tr>
+<tr class="odd">
+<td>数据采集</td>
+<td><code>arm.log.*</code></td>
+</tr>
+<tr class="even">
+<td>固件自检</td>
+<td><code>arm.diag.kin_bench()</code></td>
+</tr>
+<tr class="odd">
+<td>授权 / 固件</td>
+<td><code>license()</code>、<code>activate()</code>、<code>enter_dfu()</code>、<code>save_params()</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="异常与错误处理">异常与错误处理</h3>
+<p>全部异常继承自 <code>LiteArmError</code>。固件明确回绝的命令抛 <code>CommandRejectedError</code>，并带 <code>.cmd</code> / <code>.code</code> 两个字段。</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="im">from</span> litearm <span class="im">import</span> (</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a>    LiteArmError, NotConnectedError, TransportError, FirmwareMismatchError,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a>    InvalidCommandError, MotorFaultError, MotionTimeoutError, IKError,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a>    CommandRejectedError, UnsupportedByFirmwareError, CartesianPlanError,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a><span class="cf">try</span>:</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true"></a>    arm.movej([<span class="fl">0.0</span>]<span class="op">*</span><span class="dv">7</span>, speed<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true"></a><span class="cf">except</span> MotorFaultError <span class="im">as</span> e:</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&quot;motor fault:&quot;</span>, e)              <span class="co"># 状态帧出现 FAULT 或 EMERGENCY</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true"></a>    arm.reset()                           <span class="co"># 清故障 + 重锚控制环</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true"></a><span class="cf">except</span> IKError <span class="im">as</span> e:</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&quot;ik failed:&quot;</span>, e)                <span class="co"># 反解失败 / 目标不可达</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true"></a><span class="cf">except</span> CartesianPlanError <span class="im">as</span> e:</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&quot;cartesian plan failed:&quot;</span>, e)    <span class="co"># 固件规划被拒（无解/共线/超容量）</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true"></a><span class="cf">except</span> CommandRejectedError <span class="im">as</span> e:</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&quot;rejected:&quot;</span>, e.cmd, e.code)     <span class="co"># 固件回 ERR{cmd, code}</span></span></code></pre></div>
+<blockquote>
+<p><code>except InvalidCommandError</code> <strong>不覆盖</strong> <code>CartesianPlanError</code>：后者直挂 <code>LiteArmError</code>，因为它表达的是固件规划结论，而不是命令被拒绝。错误码里 <code>code == 0x00</code> 恒表示固件没有这条命令（<code>UnsupportedByFirmwareError</code>）。</p>
+</blockquote>
+<h2 id="其他语言与软件生态概述">其他语言与软件生态概述</h2>
+<p>LITEARM SE 的控制通路只有一条：<strong>上位机经 USB 直连控制板</strong>。所有官方 SDK 都是这条通路的不同语言封装，规划、正逆运动学与动力学一律在控制板固件里完成，上位机只负责下发目标、读回状态并判到位。</p>
+<h3 id="c-sdklitearm-cpp">C++ SDK（litearm-cpp）</h3>
+<p><code>litearm-python</code> 2.1.0 的 C++ 移植：同一套线上协议、同一套语义与安全判据，逐行对应。</p>
+<table>
+<thead>
+<tr class="header">
+<th>项目</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>编译器</td>
+<td>C++17（g++ 7+ / clang 6+ / MSVC 2019+）</td>
+</tr>
+<tr class="even">
+<td>构建</td>
+<td>CMake ≥ 3.14</td>
+</tr>
+<tr class="odd">
+<td>第三方依赖</td>
+<td><strong>无</strong>——只依赖 C++ 标准库与平台自带串口 API（POSIX termios / Win32）</td>
+</tr>
+<tr class="even">
+<td>固件</td>
+<td><code>Litearm1.5.0</code> 或更新</td>
+</tr>
+<tr class="odd">
+<td>连接</td>
+<td>USB CDC 串口，<code>VID:PID 1d50:606f</code> 自动发现</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb13"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;litearm/litearm.hpp&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a>    litearm::Arm arm;                 <span class="co">// 不传端口：按 VID:PID 1d50:606f 自动发现</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a>    arm.<span class="fu">connect</span>();</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a>    arm.movej({<span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>}, <span class="fl">0.2</span>);</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a>    arm.close();</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true"></a>}</span></code></pre></div>
+<p>命名空间为 <code>litearm</code>，类为 <code>litearm::Arm</code>，头文件位于 <code>include/litearm/</code>，构建产物是单个静态库 <code>liblitearm.a</code>。</p>
+<h3 id="ros-2">ROS 2</h3>
+<p>两个<strong>互斥</strong>入口，都与控制板直连、都没有守护进程，也都经 <code>litearm-cpp</code> 打开串口：</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>仓库</th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>litearm-ros2-control</code></td>
+<td>ros2_control 的 <code>SystemInterface</code> 插件，由 <code>joint_trajectory_controller</code> 或 MoveIt 2 驱动，用于运动控制</td>
+</tr>
+<tr class="even">
+<td><code>litearm-ros2</code></td>
+<td>独立维护驱动节点（生命周期节点 + 55 个服务），用于控制回路之外的开机验收、授权与参数调试</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>两者绝不可同时运行</strong>：它们打开的是同一个 USB CDC 串口，SDK 会对其加独占 <code>flock</code>，第二个进程直接打不开。</p>
+</blockquote>
+<p><code>litearm-description</code> 提供各型号的 URDF 描述（SE 在 <code>SE/litearm_description/</code>），<code>litearm-moveit2</code> 提供 MoveIt 2 配置包 <code>litearm_moveit_config</code>。详细的启动步骤见下一节。</p>
+<h3 id="仿真与具身生态">仿真与具身生态</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>仓库</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>litearm-pybullet</code></td>
+<td>与 <code>litearm-python</code> <strong>1:1 对齐</strong>：同样的 31 个方法名、参数与默认值，同样返回 <code>Msg</code> / <code>RobotState</code> / <code>CartPlan</code>，位姿同样是 6 个数</td>
+</tr>
+<tr class="even">
+<td><code>litearm-mujoco</code></td>
+<td>用法与 <code>litearm-python</code> 一致，但目前仍按旧接口编写：用 <code>movel</code> / <code>get_tcp_pose()</code> 与「位置 3 个数 + 3×3 旋转矩阵」位姿，尚未迁移到新接口</td>
+</tr>
+<tr class="odd">
+<td><code>litearm-isaacsim</code></td>
+<td>三节点单向同步：API 命令发布 → 真机执行 → Isaac Sim 跟随真机<strong>实测</strong>关节角，因此任何方式产生的运动（含拖拽示教）仿真都会跟上</td>
+</tr>
+<tr class="even">
+<td><code>litearm-lerobot</code></td>
+<td>LeRobot 的 <code>Robot</code> 适配器：观测 <code>observation.state</code> 为 7 个绝对关节角、动作 <code>action</code> 为 7 个关节目标，可录制 <code>LeRobotDataset</code></td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="im">from</span> litearm_pybullet <span class="im">import</span> PyBulletArm</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a><span class="cf">with</span> PyBulletArm(render<span class="op">=</span><span class="va">True</span>) <span class="im">as</span> arm:            <span class="co"># connect() 隐含</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a>    arm.movej([<span class="fl">0.0</span>, <span class="fl">0.6</span>, <span class="fl">0.0</span>, <span class="op">-</span><span class="fl">1.2</span>, <span class="fl">0.0</span>, <span class="fl">0.7</span>, <span class="fl">0.0</span>], speed<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a>    x, y, z, r, p, yw <span class="op">=</span> arm.get_tcp().value      <span class="co"># 6 个数，不是旋转矩阵</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a>    arm.move_l([x, y, z <span class="op">-</span> <span class="fl">0.1</span>, r, p, yw], speed<span class="op">=</span><span class="fl">0.1</span>)</span></code></pre></div>
+<h3 id="参考仓库">参考仓库</h3>
+<table>
+<thead>
+<tr class="header">
+<th>组件</th>
+<th>仓库</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Python SDK</td>
+<td>https://github.com/nexform-tech/litearm-python</td>
+</tr>
+<tr class="even">
+<td>C++ SDK</td>
+<td>https://github.com/nexform-tech/litearm-cpp</td>
+</tr>
+<tr class="odd">
+<td>ROS 2 控制栈</td>
+<td>https://github.com/nexform-tech/litearm-ros2-control</td>
+</tr>
+<tr class="even">
+<td>ROS 2 维护驱动</td>
+<td>https://github.com/nexform-tech/litearm-ros2</td>
+</tr>
+<tr class="odd">
+<td>URDF 描述</td>
+<td>https://github.com/nexform-tech/litearm-description</td>
+</tr>
+<tr class="even">
+<td>MoveIt 2</td>
+<td>https://github.com/nexform-tech/litearm-moveit2</td>
+</tr>
+<tr class="odd">
+<td>上位机软件</td>
+<td>https://github.com/nexform-tech/litearm-studio</td>
+</tr>
+<tr class="even">
+<td>安装教程</td>
+<td>https://github.com/nexform-tech/litearm-setup</td>
+</tr>
+<tr class="odd">
+<td>MuJoCo</td>
+<td>https://github.com/nexform-tech/litearm-mujoco</td>
+</tr>
+<tr class="even">
+<td>PyBullet</td>
+<td>https://github.com/nexform-tech/litearm-pybullet</td>
+</tr>
+<tr class="odd">
+<td>Isaac Sim</td>
+<td>https://github.com/nexform-tech/litearm-isaacsim</td>
+</tr>
+<tr class="even">
+<td>LeRobot</td>
+<td>https://github.com/nexform-tech/litearm-lerobot</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ros-2-环境的使用">ROS 2 环境的使用</h2>
+<p>ROS 2 侧<strong>不经过任何 Python 桥接进程</strong>：ros2_control 插件自己持有机械臂的 USB CDC 链路，走 <code>litearm-cpp</code>，<code>read()</code> 取 SDK 缓存好的状态帧，<code>write()</code> 用固件的 <code>MOVE_JS</code> 伺服把指令参考发回。规划、正逆运动学与动力学仍留在固件里。</p>
+<h3 id="环境与准备">环境与准备</h3>
+<table>
+<thead>
+<tr class="header">
+<th>项目</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ROS 2</td>
+<td>Humble</td>
+</tr>
+<tr class="even">
+<td>构建</td>
+<td><code>ament_cmake</code>，C++17</td>
+</tr>
+<tr class="odd">
+<td>SDK</td>
+<td><code>litearm-cpp</code>——已安装，或作为同级源码树</td>
+</tr>
+<tr class="even">
+<td>固件</td>
+<td><code>Litearm1.5.0</code> 或更新</td>
+</tr>
+<tr class="odd">
+<td>连接</td>
+<td>USB CDC 串口，<code>VID:PID 1d50:606f</code></td>
+</tr>
+<tr class="even">
+<td>串口权限</td>
+<td>Linux 下 <code>sudo usermod -aG dialout $USER</code>，重新登录后生效</td>
+</tr>
+</tbody>
+</table>
+<p>低于 1.5.0 的固件会在连接阶段被拒绝：控制栈依赖 1.5.0 才引入的状态帧布局、<code>joint_fault</code> 字段与使能位。</p>
+<p>工作区布局如下（同一工作区只保留一份机械臂描述）：</p>
+<pre class="text"><code>~/litearm_ws/src/
+├── litearm-cpp/              # C++ SDK
+├── litearm-description/      # URDF 描述（包名 litearm_description）
+└── litearm-ros2-control/     # ros2_control 插件</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="bu">source</span> /opt/ros/humble/setup.bash</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="bu">cd</span> ~/litearm_ws</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a><span class="ex">colcon</span> build</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a><span class="bu">source</span> install/setup.bash</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a><span class="ex">lsusb</span> <span class="kw">|</span> <span class="fu">grep</span> 1d50              # 应看到 1d50:606f</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true"></a><span class="fu">ls</span> /dev/ttyACM*                # 应看到 /dev/ttyACM0</span></code></pre></div>
+<h3 id="启动控制栈">启动控制栈</h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="ex">ros2</span> launch litearm_ros2_control litearm_control.launch.py</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th>参数</th>
+<th>默认值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>port</code></td>
+<td><code>''</code></td>
+<td>USB CDC 路径。留空按 <code>1d50:606f</code> 自动发现；接多块板时写 <code>port:=/dev/ttyACM1</code></td>
+</tr>
+<tr class="even">
+<td><code>clear_faults</code></td>
+<td><code>true</code></td>
+<td>配置时清一次锁存故障，使「故障之后」仍然是一条命令；<code>false</code> 让锁存故障拦住启动</td>
+</tr>
+<tr class="odd">
+<td><code>start_joint_state_broadcaster</code></td>
+<td><code>true</code></td>
+<td>拉起并激活 <code>joint_state_broadcaster</code></td>
+</tr>
+<tr class="even">
+<td><code>start_joint_trajectory_controller</code></td>
+<td><code>true</code></td>
+<td>拉起并激活 <code>joint_trajectory_controller</code></td>
+</tr>
+<tr class="odd">
+<td><code>ros_domain_id</code></td>
+<td><code>42</code></td>
+<td>本栈的 ROS 域，刻意避开 0</td>
+</tr>
+<tr class="even">
+<td><code>ros_localhost_only</code></td>
+<td><code>true</code></td>
+<td>只在本机发现，避免同网段第二台机械臂出现在 RViz 里</td>
+</tr>
+</tbody>
+</table>
+<p>栈起来之后，机械臂就是一个普通的 ros2_control 系统：给 <code>arm_controller</code>（一个 <code>joint_trajectory_controller</code>）发轨迹，或者在 MoveIt 2 里规划、由 <code>move_group</code> 执行。关节名是 <code>joint1</code>..<code>joint7</code>。</p>
+<p><strong>控制栈 + MoveIt 2 + RViz2</strong>（一条命令，内部包含上面那条）：</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="ex">ros2</span> launch litearm_moveit_config litearm_moveit.launch.py</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a><span class="ex">ros2</span> launch litearm_moveit_config litearm_moveit.launch.py use_rviz:=false       # 无显示环境</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a><span class="ex">ros2</span> launch litearm_moveit_config litearm_moveit.launch.py start_control:=false  # 只补 move_group</span></code></pre></div>
+<p>两条 launch 都把域钉在 42 并开启仅本机发现，因此从另一个终端观察前要先导出同样的变量：</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="bu">export</span> <span class="va">ROS_DOMAIN_ID=</span>42; <span class="bu">export</span> <span class="va">ROS_LOCALHOST_ONLY=</span>1</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a><span class="ex">ros2</span> node list</span></code></pre></div>
+<h3 id="接口映射">接口映射</h3>
+<p>每个关节导出三个状态接口和两个命令接口：</p>
+<table>
+<thead>
+<tr class="header">
+<th>方向</th>
+<th>接口</th>
+<th>固件含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>command</td>
+<td><code>position</code></td>
+<td><code>q_ref</code>（经 <code>MOVE_JS</code> 下发）</td>
+</tr>
+<tr class="even">
+<td>command</td>
+<td><code>velocity</code></td>
+<td><code>dq_ref</code></td>
+</tr>
+<tr class="odd">
+<td>state</td>
+<td><code>position</code></td>
+<td>实测 <code>q</code></td>
+</tr>
+<tr class="even">
+<td>state</td>
+<td><code>velocity</code></td>
+<td>实测 <code>dq</code></td>
+</tr>
+<tr class="odd">
+<td>state</td>
+<td><code>effort</code></td>
+<td>实测 <code>tau</code>——电流估算值，噪声大，<strong>不可用于控制</strong></td>
+</tr>
+</tbody>
+</table>
+<p><code>export_diagnostic_interfaces</code> 为 <code>true</code>（默认）时，每个关节还会额外导出四个诊断状态接口：</p>
+<table>
+<thead>
+<tr class="header">
+<th>接口</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>temperature_mos</code></td>
+<td>MOSFET 温度</td>
+</tr>
+<tr class="even">
+<td><code>temperature_coil</code></td>
+<td>线圈温度</td>
+</tr>
+<tr class="odd">
+<td><code>error_code</code></td>
+<td>固件故障字</td>
+</tr>
+<tr class="even">
+<td><code>feedback_age</code></td>
+<td>最近一帧状态帧的年龄（s）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>指令看门狗</strong>：固件在 100 ms 收不到指令后跳闸，所以 <code>write()</code> 必须持续重发；controller manager 的更新率只要不低于 100 Hz 就自动满足。但控制循环活跃时，不要让更新循环卡顿超过约 100 ms——超时后固件退回失效软保持，机械臂会朝负载拉拽的方向垂下去。</p>
+<p>另外要清楚在进程内直接驱动机械臂的取舍：<code>write()</code> 会进到 SDK 写一帧并等固件 ACK，上限是 SDK 自己的 1.2 s 超时。链路健康时这是亚毫秒级，USB 链路卡住时则可能把控制循环堵到那个上限。本插件不提供硬实时保证。</p>
+</blockquote>
+<h3 id="维护驱动与-rviz-显示">维护驱动与 RViz 显示</h3>
+<p>需要在不带 <code>controller_manager</code> 的情况下做开机验收、授权与参数调试时，用维护驱动：</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="ex">ros2</span> launch litearm_driver litearm_driver.launch.py</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a><span class="ex">ros2</span> service call /litearm/get_status litearm_msgs/srv/GetStatus <span class="st">&quot;{}&quot;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true"></a><span class="ex">ros2</span> service call /litearm/get_tcp litearm_msgs/srv/GetTcp <span class="st">&quot;{}&quot;</span></span></code></pre></div>
+<p>维护驱动自己隔离了参数门禁：<code>allow_motion</code> 未置位时，任何会让电机上电的服务都会被拒绝，坏参数在<strong>上线之前</strong>就被挡下。它与上一节的控制栈互斥，一次只能跑一个。</p>
+<p>只需查看模型、不接真机时，用 URDF 描述包：</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a><span class="bu">cd</span> ~/litearm_ws/src/litearm-description/SE</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a><span class="ex">colcon</span> build --packages-select litearm_description</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true"></a><span class="bu">source</span> install/setup.bash</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true"></a><span class="ex">ros2</span> launch litearm_description display.launch.py</span></code></pre></div>
+<p>RViz2 会打开并显示该臂，关节状态 GUI 为每个关节提供一根滑条。运动链为 <code>base_link → Link1 … → Link7 → ee_frame_link</code>，网格为 <code>meshes/</code> 下的 STL。</p>
+<h2 id="常见问题与技术支持">常见问题与技术支持</h2>
+<h3 id="qa">Q&amp;A</h3>
+<p><strong>问：关节空间运动和笛卡尔空间运动有什么区别？</strong> 答：关节空间运动（<code>movej</code> / <code>movej_sync</code>）只关注各关节从当前值过渡到目标值，不保证末端走直线；笛卡尔空间运动关注末端在空间中的轨迹，<code>move_l</code> 保证走直线、<code>move_c</code> 保证走圆弧、<code>move_path</code> 走多路点路径。两者都在控制板固件里规划。</p>
+<p><strong>问：关节角数组与位姿数组的元素含义？</strong> 答：关节角 <code>q</code> 为 <code>[J1, J2, …, J7]</code>（rad）。位姿为 <strong>6 个数</strong> <code>(x, y, z, rx, ry, rz)</code>：位置单位 m，姿态为绕基坐标系 X/Y/Z 轴的 RPY 角，单位 rad。SDK 也兼容「位置 3 个数 + 3×3 旋转矩阵」的写法。</p>
+<p><strong>问：<code>movej</code> 返回成功但机械臂不动？</strong> 答：先读状态确认是否失能或存在锁存故障：<code>arm.get_state().value.enabled</code> / <code>.faulted</code>。未使能时先 <code>enable()</code>；有锁存故障时先 <code>reset()</code>（清故障 + 重锚控制环）再使能。另外 <code>movej</code> 返回只代表指令已被接受——残差约 0.012 rad 在到位容差内即返回，需要精确停稳请自行读状态确认或加稳定延时。</p>
+<p><strong>问：连接不上机械臂怎么办？</strong> 答：依次检查：<code>lsusb | grep 1d50</code> 是否出现 <code>1d50:606f</code>（没有则查线缆与供电）；<code>ls /dev/ttyACM*</code> 是否有设备（固件处于 DFU 时设备会枚举成 <code>0483:DF11</code>）；Linux 下当前用户是否已加入 <code>dialout</code> 组；串口是否被另一个进程占用（同一串口同一时刻只能被一个进程持有，可用 <code>fuser -v /dev/ttyACM0</code> 查）；固件版本是否达到 <code>Litearm1.5.0</code>。</p>
+<p><strong>问：换了一台电脑/重新插拔后串口号变了？</strong> 答：设备重枚举后可能从 <code>/dev/ttyACM0</code> 变成 <code>/dev/ttyACM1</code>。按 <code>VID:PID 1d50:606f</code> 自动发现（<code>Arm()</code> 不传端口、launch 的 <code>port</code> 留空）可以避开这个问题；需要固定写死时，用 <code>/dev/serial/by-id/</code> 下的稳定路径而不是 <code>ttyACM</code> 编号。</p>
+<p><strong>问：ROS 里看不到 <code>/joint_states</code>？</strong> 答：确认 <code>joint_state_broadcaster</code> 已激活、机械臂不在故障态，并确认观察终端与 launch 处在同一个 ROS 域（<code>ROS_DOMAIN_ID=42</code>、<code>ROS_LOCALHOST_ONLY=1</code>）。</p>
+<p><strong>问：能不能同时跑 ros2_control 栈和维护驱动？</strong> 答：不能。两者打开的是同一个 USB CDC 串口，SDK 会对它加独占 <code>flock</code>，第二个进程会直接打开失败。一次只跑一个，切换前先确认旧进程已退出。</p>
+<p><strong>问：技术支持渠道？</strong> 答：NEXFORM ROBOTICS 技术团队；GitHub <a href="https://github.com/nexform-tech">github.com/nexform-tech</a> Issues。</p>
+<hr />
+<h1 id="上位机软件-litearm-studio">上位机软件 LiteArm Studio</h1>
+<blockquote>
+<p>本章为概述。LiteArm Studio 的完整界面说明、操作步骤与排障速查表单独成册，见《LiteArm Studio 操作手册》。</p>
+</blockquote>
+<h2 id="软件简介与运行形态">软件简介与运行形态</h2>
+<p>LiteArm Studio 是面向 LITEARM 七自由度（J1–J7）协作机械臂的图形化上位机控制台。它<strong>不再依赖任何后台服务主机</strong>：UI 是浏览器页面，由本机一个 Python 守护进程（<code>litearm-studio-daemon</code>）提供，守护进程是<strong>唯一</strong>接触硬件的进程。</p>
+<pre class="text"><code>浏览器窗口（React UI）
+   │  HTTP → 静态资源、/api/health
+   │  WS   → 状态下行 / 指令上行
+   ▼
+litearm-studio-daemon（Python，仅监听回环地址）
+   ▼
+litearm-python ──USB CDC（1d50:606f）──&gt; 控制板 ──CAN（板内）──&gt; 关节</code></pre>
+<ul>
+<li><strong>守护进程独占机械臂</strong>：自动发现 USB CDC 设备（或用 <code>--port</code> 指定），以 50 Hz 从 SDK 缓存的帧里推送归一化状态，所有 SDK 调用都在单线程执行器上串行化。</li>
+<li><strong>急停与失能走独立通道</strong>：两者在运动进行中依然可达，不会被正在执行的运动堵住。</li>
+<li><strong>守护进程同时托管 UI</strong>：它提供构建好的前端资源，并以 Chromium <code>--app=</code> 窗口打开（回退为普通标签页）。关闭窗口<strong>不会</strong>结束机械臂会话。</li>
+<li><strong>只监听回环地址</strong>：绑定其它地址会在代码层被拒绝——把一个能驱动机械臂的界面暴露到局域网上被当作事故处理，而不是一个可选设置。</li>
+</ul>
+<h3 id="启动方式">启动方式</h3>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a><span class="bu">cd</span> litearm-studio</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true"></a><span class="ex">pip</span> install -e ../litearm-python</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true"></a><span class="ex">pip</span> install -e <span class="st">&quot;daemon[test]&quot;</span>     # 安装 fastapi/uvicorn 与 litearm-studio-daemon 入口</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true"></a><span class="ex">pnpm</span> install <span class="kw">&amp;&amp;</span> <span class="ex">pnpm</span> build        # 构建守护进程将要托管的 UI</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true"></a><span class="ex">litearm-studio-daemon</span> --fake      # 离线：全程跑在 SDK 的假传输上，不需要硬件</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true"></a><span class="co"># litearm-studio-daemon           # 真机：自动发现 USB CDC 设备</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true"></a><span class="co"># litearm-studio-daemon --port /dev/ttyACM1 --http-port 9000 --no-open</span></span></code></pre></div>
+<p>控制台会打印它实际绑定的地址（默认 <code>http://127.0.0.1:8765/</code>，被占用时自动递增）并打开窗口。</p>
+<p>每个 release 还附带 Windows / Linux 的单文件可执行程序（<code>litearm-studio-&lt;版本&gt;-&lt;平台&gt;</code>）及对应的 <code>.sha256</code>。它们已把守护进程、<code>litearm</code> SDK 与构建好的 UI 打包在内，目标机器<strong>不需要 Python、不需要 pnpm、也不需要检出仓库</strong>：</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a><span class="ex">./litearm-studio-0.5.0-linux-amd64</span> --fake     # 离线，不需要硬件</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true"></a><span class="ex">./litearm-studio-0.5.0-linux-amd64</span>            # 真机，自动发现 USB</span></code></pre></div>
+<h3 id="功能范围">功能范围</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>模块</th>
+<th>能力</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>单臂运动控制</td>
+<td>基于 URDF 的实时 3D 数字孪生（含坐标系辅助线）；J1–J7 关节滑条（范围取自固件软限位）与批量下发；基坐标系 / 工具坐标系下的笛卡尔点动，以及到目标位姿的直线运动；就绪姿态、固件回零、零重力拖动示教、使能 / 失能、清错；运动过程中依然可达的高优先级 STOP 急停</td>
+</tr>
+<tr class="even">
+<td>遥测</td>
+<td>10 Hz 关节采样（角度、速度、力矩、温度、驱动器错误码）；浏览器端 IndexedDB 会话录制，配额可在 10–500 MB 之间配置，支持 CSV 导出</td>
+</tr>
+<tr class="odd">
+<td>国际化</td>
+<td>英文 / 简体中文</td>
+</tr>
+</tbody>
+</table>
+<figure>
+<img src="../LITEARM_SE_images/litearm_studio/01_solo_overview.png" alt="" /><figcaption>LiteArm Studio 主界面（单臂控制台总览）</figcaption>
+</figure>
+<blockquote>
+<p><strong>本版本尚未包含</strong>：轨迹示教录制 / 回放、控制服务日志页面、夹爪与灵巧手面板、逐关节阻抗或保持模式。设置与校定页面（负载、增益、限位、自检）目前也还没有接到守护进程上——守护进程侧的对应命令已经存在，只是没有界面入口。</p>
+</blockquote>
+<h2 id="实机安全操作与开发建议">实机安全操作与开发建议</h2>
+<ul>
+<li>任何实机使能、运动控制或参数下发前，须确认机械臂工作半径内<strong>无人员驻留、无障碍物干涉</strong>；使能 / 失能、Home / Zero 的安全语义见产品手册的相关章节。</li>
+<li><strong>失能瞬间电机释放锁止力矩，机械臂可能因重力下坠</strong>，失能前务必扶稳机械臂或使其处于低位安全姿态。</li>
+<li>守护进程与 SDK 打开的是同一个 USB CDC 串口，SDK 会对其加独占 <code>flock</code>：<strong>上位机运行时，其它进程（SDK 脚本、ROS 2 栈、维护驱动）都打不开这个串口</strong>，反之亦然。请勿由上位机与 SDK 同时竞争同一台机械臂。</li>
+<li>需要程序化、可复现的自动化运行时，建议直接采用 SDK（第 2 章）；上位机适合人工监控、示教与演示。</li>
+</ul>
+<hr />
+<h1 id="附录一-机器人状态与报错">附录一 机器人状态与报错</h1>
+<h2 id="状态字段robotstate">状态字段（<code>RobotState</code>）</h2>
+<p><code>arm.get_state()</code> 返回 <code>Msg</code> 信封，载荷是 <code>RobotState</code>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>mode</code> / <code>mode_name</code></td>
+<td>控制器运行模式码与名称（如 <code>INIT</code> 等）</td>
+</tr>
+<tr class="even">
+<td><code>flags</code> / <code>flag_names</code></td>
+<td>配置位图与已解码的名称列表（使能、笛卡尔运动进行中、故障等）</td>
+</tr>
+<tr class="odd">
+<td><code>seq</code></td>
+<td>状态帧序号；连续两帧 <code>seq</code> 不变说明读路径卡住</td>
+</tr>
+<tr class="even">
+<td><code>joints</code></td>
+<td><code>JointState</code> 列表，逐轴字段见下表</td>
+</tr>
+<tr class="odd">
+<td><code>joint_fault</code></td>
+<td>固件单关节故障降级位图（<code>Litearm1.5.0</code> 起上报，旧布局恒 0）</td>
+</tr>
+</tbody>
+</table>
+<p>派生属性（不必自己算）：</p>
+<table>
+<thead>
+<tr class="header">
+<th>属性</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>n</code></td>
+<td>关节数（机械臂 7、台架 1）</td>
+</tr>
+<tr class="even">
+<td><code>enabled</code></td>
+<td>是否已使能</td>
+</tr>
+<tr class="odd">
+<td><code>cart_busy</code></td>
+<td>是否正在执行笛卡尔运动</td>
+</tr>
+<tr class="even">
+<td><code>q</code> / <code>dq</code> / <code>tau</code></td>
+<td>各关节位置 / 速度 / 力矩的数组视图</td>
+</tr>
+<tr class="odd">
+<td><code>fault_axes</code></td>
+<td>故障轴号列表</td>
+</tr>
+<tr class="even">
+<td><code>faulted</code></td>
+<td>是否处于故障态</td>
+</tr>
+<tr class="odd">
+<td><code>fault_detail</code></td>
+<td>故障的可读描述</td>
+</tr>
+<tr class="even">
+<td><code>drop_hold_inferred</code></td>
+<td>是否<strong>推断</strong>存在掉线刚性持位锁存</td>
+</tr>
+</tbody>
+</table>
+<p><code>JointState</code> 逐轴字段：<code>q</code>（位置 rad）、<code>dq</code>（速度 rad/s）、<code>tau</code>（力矩 N·m）、<code>t_mos</code>（MOSFET 温度 ℃）、<code>t_coil</code>（线圈温度 ℃）、<code>err</code>（该轴驱动器故障码）。</p>
+<blockquote>
+<p><strong>一个常见陷阱</strong>：<code>drop_hold</code> 锁存<strong>读不到</strong>——状态帧里没有这一位，只能靠推断。SDK 唯一能确证它存在的时刻，是带该门禁的运动命令回 <code>ERR{cmd, 0x06}</code> 时（见下节）。</p>
+</blockquote>
+<h2 id="python-异常类型">Python 异常类型</h2>
+<p>全部继承自 <code>litearm.errors.LiteArmError</code>，可从顶层包直接导入：</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>异常</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>LiteArmError</code></td>
+<td>全部 SDK 运行时错误的基类</td>
+</tr>
+<tr class="even">
+<td><code>NotConnectedError</code></td>
+<td>未连接或串口未打开时调用</td>
+</tr>
+<tr class="odd">
+<td><code>ForkedSessionError</code></td>
+<td>在 <code>fork()</code> 出的<strong>子进程</strong>里使用父进程建立的会话（继承自 <code>NotConnectedError</code>）</td>
+</tr>
+<tr class="even">
+<td><code>TransportError</code></td>
+<td>串口读写或帧 CRC 校验失败</td>
+</tr>
+<tr class="odd">
+<td><code>FirmwareMismatchError</code></td>
+<td>固件版本不符合约定（应为 <code>Litearm</code> + 三段版本号 + <code>-7J</code> / <code>-1J</code>）或低于最低版本</td>
+</tr>
+<tr class="even">
+<td><code>InvalidCommandError</code></td>
+<td>参数 / 命令非法（长度不对、取值越界等），<strong>在上线之前</strong>就抛出</td>
+</tr>
+<tr class="odd">
+<td><code>MotorFaultError</code></td>
+<td>状态帧出现 <code>FAULT</code>，或进入 <code>EMERGENCY</code>（含单关节故障降级）</td>
+</tr>
+<tr class="even">
+<td><code>MotionTimeoutError</code></td>
+<td>运动超时未到位</td>
+</tr>
+<tr class="odd">
+<td><code>IKError</code></td>
+<td>逆解失败 / 目标不可达</td>
+</tr>
+<tr class="even">
+<td><code>CommandRejectedError</code></td>
+<td>固件显式回 <code>ERR{cmd, code}</code>；带 <code>.cmd</code> / <code>.code</code> 字段</td>
+</tr>
+<tr class="odd">
+<td><code>UnsupportedByFirmwareError</code></td>
+<td>固件<strong>没有实现</strong>这条命令（<code>code == 0x00</code>；继承自 <code>CommandRejectedError</code>）</td>
+</tr>
+<tr class="even">
+<td><code>CartesianPlanError</code></td>
+<td>固件规划被拒：IK 无解 / 三点共线 / 超容量 / 越限位——臂一步没动</td>
+</tr>
+<tr class="odd">
+<td><code>MotionSupersededError</code></td>
+<td>这条笛卡尔请求被新请求取代——<strong>预期内的接管，不是失败</strong></td>
+</tr>
+<tr class="even">
+<td><code>CartReplyLostError</code></td>
+<td>笛卡尔应答丢失，<strong>结局未知</strong>：臂可能动了也可能没动，只能回读状态判定，<strong>不可当失败重发</strong></td>
+</tr>
+<tr class="odd">
+<td><code>ArmIsInDfuError</code></td>
+<td>本 <code>Arm</code> 已把设备交棒进 ROM bootloader，会话进入<strong>终态</strong>，不可再用</td>
+</tr>
+<tr class="even">
+<td><code>TeleopLockedError</code> / <code>TeleopBusyError</code></td>
+<td>遥操作相关的占用 / 锁定错误</td>
+</tr>
+</tbody>
+</table>
+<p>两条容易踩的继承关系：</p>
+<ul>
+<li><strong><code>except InvalidCommandError</code> 不覆盖 <code>CartesianPlanError</code></strong>。后者直挂 <code>LiteArmError</code>——它表达的是固件对这条轨迹的规划结论，而不是「命令被拒绝」，硬套会凭空多出语义错误的 <code>.cmd</code> / <code>.code</code>。</li>
+<li><strong>不要用 <code>except CartesianPlanError</code> 顺带抓 <code>MotionSupersededError</code></strong>。抢占是正常用法（新目标来了就接管旧的），混进通用异常会让正常抢占走成故障分支、触发本不该有的错误恢复。</li>
+</ul>
+<h2 id="错误处理建议">错误处理建议</h2>
+<ol type="1">
+<li>首次联调从只读接口开始：<code>arm.get_state()</code> 确认 <code>enabled</code> / <code>faulted</code> / <code>fault_detail</code> 与关节数正常，再谈使能与运动。</li>
+<li>先分清楚<strong>谁拒绝的</strong>：读不到设备看 <code>TransportError</code>；版本不符看 <code>FirmwareMismatchError</code>；固件明确回绝看 <code>CommandRejectedError</code>（读 <code>.cmd</code> 与 <code>.code</code>，<strong>以回显的命令码为准</strong>，不要拿“我刚发了哪条”去推断，异步路径的 ERR 与它对应的命令不在同一次收发里）。</li>
+<li>出现锁存故障时：先确认周围安全 → 必要时人工托扶机械臂 → <code>reset()</code>（清故障 + 重锚控制环）→ <code>enable()</code>。</li>
+<li>笛卡尔请求失败：先区分四种结局——<code>CartesianPlanError</code>（这条轨迹不成立，臂没动）、<code>MotionSupersededError</code>（被接管，正常）、<code>CartReplyLostError</code>（结局未知，回读判定，<strong>不可重发</strong>）、<code>MotionTimeoutError</code>（发下去了但没按时到位）。</li>
+<li>透传高频率下发出现看门狗接管：确认发送帧率不低于 10 Hz，检查 <code>send_mit_all</code> 的五个数组长度是否都等于关节数。</li>
+<li>子进程里报 <code>ForkedSessionError</code>：不要试图沿用父进程的会话，在子进程里<strong>新建一个 <code>Arm</code></strong>。</li>
+</ol>
+<hr />
+<h1 id="附录二-机械臂连接">附录二 机械臂连接</h1>
+<h2 id="串口与设备信息">串口与设备信息</h2>
+<table>
+<thead>
+<tr class="header">
+<th>项目</th>
+<th>值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>连接方式</td>
+<td>USB CDC 虚拟串口</td>
+<td>上位机与控制板之间的一根 USB 线</td>
+</tr>
+<tr class="even">
+<td>VID:PID</td>
+<td><code>1d50:606f</code></td>
+<td>SDK 与 ROS 2 插件据此自动发现设备</td>
+</tr>
+<tr class="odd">
+<td>设备路径</td>
+<td><code>/dev/ttyACM0</code>（Linux）/ <code>COMx</code>（Windows）</td>
+<td>重枚举后编号可能变化</td>
+</tr>
+<tr class="even">
+<td>串口参数</td>
+<td>921600 8N1</td>
+<td>由 SDK 设定，用户不需要配置</td>
+</tr>
+<tr class="odd">
+<td>固件要求</td>
+<td><code>Litearm1.5.0</code> 或更新</td>
+<td>版本串形如 <code>Litearm1.5.0-7J</code>（<code>-7J</code> 七轴 / <code>-1J</code> 单轴台架）</td>
+</tr>
+<tr class="even">
+<td>DFU 模式</td>
+<td>枚举为 <code>0483:DF11</code></td>
+<td>ROM bootloader，需刷入固件才能回到 CDC</td>
+</tr>
+<tr class="odd">
+<td>串口权限</td>
+<td>Linux 下 <code>sudo usermod -aG dialout $USER</code></td>
+<td>重新登录后生效</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>除 USB 线外，机械臂侧的供电接线（电源模块 → XT60 → 控制板 → 机械臂下方接口）见《LITEARM-SE 机械臂安装教程》的电气连接章节。<strong>用户不接触、也不需要配置板内 CAN 总线</strong>。</p>
+</blockquote>
+<h2 id="建立连接">建立连接</h2>
+<ol type="1">
+<li>用 USB 线连接控制板与上位机，接通机械臂电源；</li>
+<li><code>lsusb | grep 1d50</code> 应看到 <code>1d50:606f</code>；<code>ls /dev/ttyACM*</code> 应看到设备节点；</li>
+<li>Linux 下确认当前用户在 <code>dialout</code> 组（<code>groups | grep dialout</code>）；</li>
+<li>运行 SDK 最小示例验证：<code>with pa.Arm().connect() as arm: print(arm.get_state().value.enabled)</code>。</li>
+</ol>
+<h2 id="连接排查与多臂">连接排查与多臂</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>现象</th>
+<th>原因与处理</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>lsusb</code> 看不到 <code>1d50:606f</code></td>
+<td>线缆未插好 / 控制板未上电 / 设备处于 DFU（此时枚举为 <code>0483:DF11</code>）</td>
+</tr>
+<tr class="even">
+<td>找不到 <code>/dev/ttyACM*</code></td>
+<td>同上；也可能是内核驱动未加载，换一根数据线（有些线只供电不传数据）重试</td>
+</tr>
+<tr class="odd">
+<td><code>permission denied</code> 打开串口</td>
+<td>用户不在 <code>dialout</code> 组，<code>sudo usermod -aG dialout $USER</code> 后<strong>重新登录</strong></td>
+</tr>
+<tr class="even">
+<td>之前能连，现在打不开</td>
+<td>串口被另一个进程占用——同一串口同一时刻只能被一个进程持有（SDK 加独占 <code>flock</code>）。<code>fuser -v /dev/ttyACM0</code> 查占用者，停掉它再试</td>
+</tr>
+<tr class="odd">
+<td>换了台电脑 / 重新插拔后连不上</td>
+<td>设备重枚举后编号可能从 <code>ttyACM0</code> 变成 <code>ttyACM1</code>。不传 <code>port</code> 让 SDK 自动发现即可；必须写死路径时用 <code>/dev/serial/by-id/</code> 下的稳定名称</td>
+</tr>
+<tr class="even">
+<td><code>FirmwareMismatchError</code></td>
+<td>固件低于 <code>Litearm1.5.0</code>，需升级固件</td>
+</tr>
+</tbody>
+</table>
+<p><strong>多台机械臂</strong>：每台机械臂各有自己的控制板与 USB 串口。为每个串口各建一个 <code>Arm</code> 实例即可（<code>Arm(port="/dev/ttyACM0")</code> 与 <code>Arm(port="/dev/ttyACM1")</code>），互不影响。若不想写死编号，可依次用 <code>Arm()</code> 自动发现、或改用 <code>/dev/serial/by-id/</code> 路径区分。</p>
+<blockquote>
+<p><strong>文档结束</strong>　如有疑问或需要补充信息，请联系 NEXFORM ROBOTICS 技术团队。</p>
+</blockquote>
+</article>
+  </main>
+</div>
+<script>
+(function(){
+  var DOCS={product:"产品手册",dev:"软件开发手册"};
+  var articles={},trees={};
+  Object.keys(DOCS).forEach(function(k){
+    var art=document.getElementById("doc-"+k);
+    var nav=document.getElementById("tree-"+k);
+    articles[k]=art;trees[k]=nav;
+    buildTree(art,nav);
+  });
+  function levelName(h){return h.tagName.toLowerCase()}
+  function buildTree(art,nav){
+    var lis=[];
+    art.querySelectorAll("h1,h2,h3,h4").forEach(function(h){
+      if(h.closest(".doc-cover"))return;   // 封面大标题不进目录
+      var id=h.id||("sec-"+Math.random().toString(36).slice(2,8));
+      if(!h.id)h.id=id;
+      var lv=parseInt(levelName(h).slice(1));
+      var a=document.createElement("a");
+      a.href="#"+id;a.textContent=h.textContent;
+      var li=document.createElement("li");li.className="lv"+lv;
+      li.appendChild(a);lis.push({li:li,lv:lv,a:a});
+    });
+    var stack=[{ul:document.createElement("ul"),lv:0}];
+    lis.forEach(function(it){
+      while(stack[stack.length-1].lv>=it.lv)stack.pop();
+      var top=stack[stack.length-1];
+      top.ul.appendChild(it.li);
+      var ul=document.createElement("ul");
+      it.li.appendChild(ul);
+      stack.push({ul:ul,lv:it.lv});
+    });
+    nav.appendChild(stack[0].ul);
+    if(!lis.length){var p=document.createElement("p");p.className="none";p.textContent="暂无目录";nav.appendChild(p);}
+  }
+  function activeTab(k){
+    Object.keys(DOCS).forEach(function(x){
+      articles[x].style.display=(x===k)?"":"none";
+      trees[x].style.display=(x===k)?"":"none";
+      document.querySelector('.tab[data-doc="'+x+'"]').classList.toggle("active",x===k);
+    });
+    document.title="LITEARM SE 资料 · "+DOCS[k]+" · NEXFORM ROBOTICS";
+  }
+  document.querySelectorAll(".tab").forEach(function(b){
+    b.addEventListener("click",function(){
+      activeTab(b.getAttribute("data-doc"));
+      history.replaceState(null,"","#"+b.getAttribute("data-doc"));
+    });
+  });
+  var initedHash=location.hash.replace("#","");
+  if(DOCS[initedHash])activeTab(initedHash);else activeTab("product");
+  function current(){for(var k in DOCS){if(articles[k].style.display!=="none")return k;}return "product"}
+  function clearCur(){for(var k in DOCS)trees[k].querySelectorAll("a.cur").forEach(function(a){a.classList.remove("cur")})}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting)return;
+      var h=e.target,art=h.closest(".doc"),k=null;
+      Object.keys(DOCS).forEach(function(x){if(art===articles[x])k=x});
+      if(!k)return;
+      clearCur();
+      var n=trees[k].querySelector('a[href="#'+h.id+'"]');
+      if(n)n.classList.add("cur");
+    });
+  },{rootMargin:"-70px 0px -70% 0px",threshold:0});
+  Object.keys(DOCS).forEach(function(k){
+    articles[k].querySelectorAll("h1,h2,h3,h4").forEach(function(h){io.observe(h)});
+  });
+  var q=document.getElementById("q");
+  q.addEventListener("input",function(){
+    var s=q.value.trim().toLowerCase(),k=current();
+    trees[k].querySelectorAll("li").forEach(function(li){
+      if(!s){li.style.display="";return}
+      var a=li.querySelector(":scope > a");
+      var me=a&&a.textContent.toLowerCase().indexOf(s)>=0;
+      var hasChild=[].some.call(li.querySelectorAll("a"),function(x){
+        return x!==a&&x.textContent.toLowerCase().indexOf(s)>=0;});
+      li.style.display=(me||hasChild)?"":"none";
+    });
+  });
+})();
+</script>
+</body>
+</html>
