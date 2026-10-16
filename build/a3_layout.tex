@@ -1,5 +1,4 @@
-\XeTeXlinebreaklocale "zh"
-\XeTeXlinebreakskip = 0pt plus 1pt
+@DOCLANGUAGEBLOCK@
 
 \usepackage{caption}
 \usepackage{etoolbox}
@@ -50,7 +49,8 @@
 \pretocmd{\subsubsection}{\aifc@needheadspace}{}{\relax}
 \makeatother
 \setcounter{tocdepth}{3}
-\renewcommand{\contentsname}{目录}
+% 目录标题、“图N.”图注字样随语言代入（中文：目录/图，英文：Contents/Figure）。
+\renewcommand{\contentsname}{@CONTENTSNAME@}
 % ===== 目录页 =====
 % 章级目录条目列宽对齐 A3：编号左缘在 x43（缩进 0em），标题自 x55 起（编号盒 1.1em）；
 % 节(1.5em/2.3em)、小节(3.8em/3.2em)两级沿用 LaTeX 默认，恰为 A3 参考列(x59/84、x84/119)。
@@ -67,10 +67,10 @@
     \aifcstdTOC
   \endgroup}
 
-% ===== 图注：小号居中 "图N. 说明" =====
-\DeclareCaptionLabelFormat{a3}{图#2. }
+% ===== 图注：小号居中 "图N. 说明"（英文版为 "Figure N. 说明"）=====
+\DeclareCaptionLabelFormat{a3}{@CAPTIONLABEL@}
 \DeclareCaptionFont{a3}{\fontsize{8.5}{11}\selectfont}
-\renewcommand{\figurename}{图}
+\renewcommand{\figurename}{@FIGNAME@}
 \captionsetup[figure]{font={a3,rm},labelfont={a3,rm},labelformat=a3,labelsep=none,skip=3pt}
 
 % ===== 表格：booktabs 灰色横线（A3：无竖线、灰线、上下粗中间细）=====
@@ -116,10 +116,13 @@
   \setcounter{topnumber}{4}\setcounter{totalnumber}{6}%
 }
 
-% ===== 强制使用简体中文字形 SourceHan Serif SC（Noto Serif CJK SC 单地区文件），
-% 避免系统 ttc 默认取 JP 面；正文为 11pt（与 A3 参考一致）=====
-% Path= 由 build_a3.sh 从 LITEARM_CJK_FONT_DIR 代入（此处 @CJKFONTDIR@ 为占位符）。
-\setCJKmainfont[Path=@CJKFONTDIR@,
-  UprightFont=NotoSerifCJKSC-Regular.otf,
-  BoldFont=NotoSerifCJKSC-Bold.otf]{LITEARM CJK SC}
+% ===== 正文字体 =====
+% 中文版：语言块给出 xeCJK 的断行设置，字体块强制使用简体中文字形 SourceHan
+% Serif SC（Noto Serif CJK SC 单地区文件），避免系统 ttc 默认取 JP 面；正文 11pt。
+% Path= 由 build_a3.sh 从 LITEARM_CJK_FONT_DIR 代入。
+% 英文版：不加载 xeCJK，改把等宽字体换成 DejaVu Sans Mono——手册里的
+% ```text``` 目录树/链路图用到 U+2500 制表符，Latin Modern Mono 没有这些字形。
+%
+% 注意：占位符名不要出现在注释里，替换进去的多行文本会在注释中间断行。
+@CJKFONTBLOCK@
 
