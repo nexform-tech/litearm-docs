@@ -3,7 +3,9 @@
 #   - build/check_docs.py resolves every figure the manuals and the committed
 #     site reference against the working tree. A missing figure is silent in both
 #     the typesetter and the browser, so nothing else catches it.
-#   - The two READMEs are linted.
+#   - The READMEs and CONTRIBUTING.md are linted. CONTRIBUTING.md is where the
+#     build and figure rules live, so it is read by exactly the people whose
+#     edits a broken link or a stale claim would send astray.
 #
 # Tests live in their own workflow: they run on pull requests, while the release
 # workflow runs on pushes to the default branch. Mixing the two means a broken
@@ -44,7 +46,7 @@ jobs:
           node-version: 22
 
       - name: Lint Markdown
-        run: npx --yes markdownlint-cli2@0.23.3 "README.md" "README.zh-CN.md"
+        run: npx --yes markdownlint-cli2@0.23.3 "README.md" "README.zh-CN.md" "CONTRIBUTING.md"
 
       - name: Check manual sources
         run: python3 build/check_docs.py
@@ -54,6 +56,7 @@ jobs:
           set -euo pipefail
           test -s README.md
           test -s README.zh-CN.md
+          test -s CONTRIBUTING.md
           test -s AGENTS.md
           test -s LICENSE
           test -s LITEARM_SE产品手册.md
