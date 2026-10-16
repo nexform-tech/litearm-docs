@@ -3,8 +3,8 @@
 Product documentation source, built and published as the public documentation
 site for the **LiteArm robotic manipulator series**.
 
-> **Status:** repository initialized. Source code, packaging and documentation
-> have not landed yet.
+> **Status:** the LITEARM SE manuals are committed. The documentation toolchain
+> and the published site have not landed yet.
 
 ## Scope
 
@@ -12,7 +12,27 @@ site for the **LiteArm robotic manipulator series**.
 | --- | --- |
 | Product | LiteArm robotic manipulator series |
 | Repository role | Product documentation source, built and published as the public documentation site |
-| Status | Initializing — no source code yet |
+| Status | Initializing — LITEARM SE manuals committed, toolchain not yet chosen |
+
+## Manuals
+
+Both manuals are revision V1.0.4, dated 2026-10-16, and are written in
+Simplified Chinese.
+
+| Manual | Document | Pages |
+| --- | --- | --- |
+| Product manual | [LITEARM_SE产品手册.pdf](<LITEARM_SE产品手册.pdf>) | 12 |
+| Software development manual | [LITEARM SE软件开发手册.pdf](<LITEARM SE软件开发手册.pdf>) | 29 |
+
+The product manual covers hardware composition, safety notices, electrical
+interfaces and frequently asked questions. Robot installation lives in a
+separate document, 《LITEARM-SE 机械臂安装教程》, that is not in this repository.
+
+The software development manual covers the SDK usage guide and the host
+tooling.
+
+Do not read the PDFs as the documentation source: they are rendered output and
+no build pipeline in this repository regenerates them.
 
 ## Related repositories
 
