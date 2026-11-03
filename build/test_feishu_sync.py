@@ -4,6 +4,7 @@
 import os
 import sys
 import unittest
+from unittest import mock
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -47,6 +48,30 @@ class MultipartTest(unittest.TestCase):
     def test_ascii_filename_avoids_header_encoding_error(self):
         _, body = feishu_sync.encode_multipart({"file_name": "产品手册.pdf"}, "产品手册.pdf", b"x")
         self.assertIn('filename="upload.pdf"', body.decode("utf-8"))
+
+
+class TenantTokenTest(unittest.TestCase):
+    def test_token_request_carries_no_authorization_header(self):
+        """取 token 的请求本身不能带 Authorization，否则拼字符串时拿到 None。"""
+        captured = {}
+
+        class FakeResponse:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self):
+                return b'{"code": 0, "tenant_access_token": "t-123"}'
+
+        def fake_urlopen(req, timeout=0):
+            captured["req"] = req
+            return FakeResponse()
+
+        with mock.patch("feishu_sync.urllib.request.urlopen", fake_urlopen):
+            self.assertEqual(feishu_sync.tenant_token("cli_x", "secret"), "t-123")
+        self.assertIsNone(captured["req"].get_header("Authorization"))
 
 
 if __name__ == "__main__":

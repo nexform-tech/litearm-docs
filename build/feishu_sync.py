@@ -35,7 +35,8 @@ def api(method, path, body=None, token=None, timeout=60):
     if body is not None:
         data = json.dumps(body, ensure_ascii=False).encode("utf-8")
     req = urllib.request.Request(BASE + path, data=data, method=method)
-    req.add_header("Authorization", "Bearer " + token)
+    if token:
+        req.add_header("Authorization", "Bearer " + token)
     if data is not None:
         req.add_header("Content-Type", "application/json; charset=utf-8")
     try:
