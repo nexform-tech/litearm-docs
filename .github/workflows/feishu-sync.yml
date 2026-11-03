@@ -15,6 +15,7 @@ on:
       - main
     paths:
       - "*.pdf"
+      - "*.STEP"
       - "build/feishu_sync.py"
       - "build/feishu_sync.json"
       - ".github/workflows/feishu-sync.yml"
