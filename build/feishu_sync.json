@@ -6,7 +6,16 @@
         "LITEARM_SE产品手册.pdf",
         "LITEARM SE软件开发手册.pdf",
         "LITEARM-SE末端连接件图纸.pdf",
-        "LITEARM-SE DH参数.pdf"
+        "LITEARM-SE DH参数.pdf",
+        { "path": "drawings/base-plate-dimensions.pdf", "name": "机械臂专用安装底板尺寸.pdf" },
+        { "path": "drawings/mounting-flange-dimensions.pdf", "name": "机械臂安装法兰孔位.PDF" },
+        { "path": "drawings/end-mounting-dimensions.pdf", "name": "末端安装尺寸.PDF" },
+        { "path": "drawings/workspace-envelope.pdf", "name": "机械臂作业运动范围及角度.PDF" },
+        { "path": "drawings/drooping-envelope.pdf", "name": "机械臂下垂姿态活动范围.pdf" },
+        { "path": "drawings/gripper-dimensions.pdf", "name": "夹爪尺寸.PDF" },
+        { "path": "drawings/holder-dimensions.pdf", "name": "夹持器尺寸.PDF" },
+        { "path": "drawings/o6-hand-dimensions.pdf", "name": "O6灵巧手尺寸.PDF" },
+        { "path": "drawings/lingxin-hand-dimensions.pdf", "name": "灵心巧手尺寸.pdf" }
       ]
     }
   ]
