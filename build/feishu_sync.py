@@ -88,6 +88,16 @@ def find_file_block(blocks, name):
     return None
 
 
+def file_entry(entry):
+    """把配置项统一成 (仓库里的相对路径, 飞书文档里的文件名)。
+
+    字符串项表示两者相同；对象项用于仓库文件名与飞书里的展示名不一致的情况。
+    """
+    if isinstance(entry, str):
+        return entry, entry
+    return entry["path"], entry["name"]
+
+
 def encode_multipart(fields, file_name, file_bytes):
     """拼 multipart/form-data 请求体。
 
@@ -111,21 +121,22 @@ def encode_multipart(fields, file_name, file_bytes):
     return boundary, b"".join(chunks)
 
 
-def upload_media(token, document_id, block_id, path):
+def upload_media(token, document_id, block_id, path, name):
+    """上传文件到媒体库；name 是飞书文件块里显示的名字（也是同步脚本匹配用的键）。"""
     size = os.path.getsize(path)
     if size > MAX_SINGLE_UPLOAD:
-        raise SystemExit(f"{os.path.basename(path)} 超过 20 MB，需要分片上传，脚本暂不支持")
+        raise SystemExit(f"{name} 超过 20 MB，需要分片上传，脚本暂不支持")
     with open(path, "rb") as f:
         content = f.read()
     boundary, body = encode_multipart(
         {
-            "file_name": os.path.basename(path),
+            "file_name": name,
             "parent_type": "docx_file",
             "parent_node": block_id,
             "size": str(size),
             "extra": json.dumps({"drive_route_token": document_id}),
         },
-        os.path.basename(path),
+        name,
         content,
     )
     req = urllib.request.Request(BASE + "/drive/v1/medias/upload_all", data=body, method="POST")
@@ -136,11 +147,11 @@ def upload_media(token, document_id, block_id, path):
             result = json.loads(resp.read().decode("utf-8"))
     except urllib.error.HTTPError as exc:
         raise SystemExit(
-            f"上传 {os.path.basename(path)} 失败：HTTP {exc.code} "
+            f"上传 {name} 失败：HTTP {exc.code} "
             f"{exc.read().decode('utf-8', 'replace')}"
         ) from exc
     if result.get("code") != 0:
-        raise SystemExit(f"上传 {os.path.basename(path)} 失败：{result.get('msg')}")
+        raise SystemExit(f"上传 {name} 失败：{result.get('msg')}")
     return result["data"]["file_token"]
 
 
@@ -208,17 +219,18 @@ def main():
     for doc in config["documents"]:
         document_id = doc["document_id"]
         blocks = list_blocks(token, document_id)
-        for name in doc["files"]:
-            path = os.path.join(ROOT, name)
+        for entry in doc["files"]:
+            relative_path, name = file_entry(entry)
+            path = os.path.join(ROOT, relative_path)
             if not os.path.isfile(path):
-                raise SystemExit(f"仓库里找不到 {name}")
+                raise SystemExit(f"仓库里找不到 {relative_path}")
             block_id = find_file_block(blocks, name)
             if not block_id:
                 raise SystemExit(
                     f"文档 {document_id} 里没有名为 {name} 的文件块；"
                     "先在飞书文档里建一个同名文件块，或检查 build/feishu_sync.json"
                 )
-            file_token = upload_media(token, document_id, block_id, path)
+            file_token = upload_media(token, document_id, block_id, path, name)
             replace_file(token, document_id, block_id, file_token)
             verify_sync(token, document_id, block_id, file_token, path)
             print(f"已同步 {name} -> {document_id}/{block_id}")

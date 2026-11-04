@@ -33,6 +33,17 @@ class FindFileBlockTest(unittest.TestCase):
         self.assertIsNone(feishu_sync.find_file_block(blocks, "missing.pdf"))
 
 
+class FileEntryTest(unittest.TestCase):
+    def test_string_entry_uses_same_path_and_name(self):
+        self.assertEqual(feishu_sync.file_entry("产品手册.pdf"), ("产品手册.pdf", "产品手册.pdf"))
+
+    def test_object_entry_separates_path_and_display_name(self):
+        entry = {"path": "drawings/gripper-dimensions.pdf", "name": "夹爪尺寸.PDF"}
+        self.assertEqual(
+            feishu_sync.file_entry(entry), ("drawings/gripper-dimensions.pdf", "夹爪尺寸.PDF")
+        )
+
+
 class MultipartTest(unittest.TestCase):
     def test_includes_fields_and_file_bytes(self):
         boundary, body = feishu_sync.encode_multipart(
