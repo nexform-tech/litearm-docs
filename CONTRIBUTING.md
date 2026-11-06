@@ -23,6 +23,14 @@ the Markdown and the rebuilt PDF. The intermediate `.tex`, `.aux`, `.log` and
 `.toc` files that appear alongside it are generated too and are git-ignored;
 never edit them either.
 
+`相机支架安装使用方式.pdf` and its English edition `camera-bracket-guide.pdf` are
+the exception. Their source is three raster pages exported from CAD, with the
+callouts drawn into the pictures, so there is no Markdown to build from and no
+build step that overwrites them; changing one means redrawing the pages. The
+English edition was made from the Chinese one: each Chinese callout was blanked
+and the English text set in the same red in the same place, leaving the figures
+untouched.
+
 `manual_site/index.html` is committed, so it is easy to mistake for a source.
 **Keep it where it is in the repository** — its figures are referenced as
 `../LITEARM_SE_images/...`, so copying the file out on its own makes every
