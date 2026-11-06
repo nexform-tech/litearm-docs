@@ -12,6 +12,8 @@ on:
     paths:
       - "**/*.pdf"
       - "**/*.PDF"
+      - "**/*.STEP"
+      - "**/*.step"
   workflow_dispatch:
 
 permissions: {}
