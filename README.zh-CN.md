@@ -27,6 +27,28 @@ LiteArm 机械臂系列的产品文档：LITEARM SE 的产品手册与软件开�
 另有其他语言绑定与 ROS 2 环境概述、上位机软件 LiteArm Studio 与实机安全操作
 建议，以及两个附录——机器人状态与报错、机械臂连接。
 
+## 文档中心
+
+这里的每一份 PDF 和 STEP 模型都会同步到飞书上的 NEXFORM 文档中心。不需要人工
+上传：把文件合并进 `main` 就是全部流程，几分钟内站点就会更新。
+
+1. 推送到 `main` 且改动 `*.pdf`、`*.STEP` 或 `*.step` 时，触发
+   `.github/workflows/notify-docs.yml`；它用 `nexform-docs-dispatch` 这个
+   GitHub App 换取短期令牌，向
+   [nexform-guide](https://github.com/nexform-tech/nexform-guide) 发送
+   `docs-updated` 事件。
+2. `nexform-guide` 运行 `scripts/sync_files.py`，按它 `files.yaml` 的清单从
+   拥有该文件的仓库下载，只提交字节有变化的那些。
+3. 它的 `Publish` 流程逐个比对飞书文件块与本地副本的 SHA-256，只重传不同的
+   那些，然后回读文档校验。
+
+每天 03:00 UTC 还会跑一遍第 2 步，所以即使某次事件丢了，最多晚一天。你这边
+不需要任何飞书凭据：跟飞书打交道的任务都在 CI 里跑。
+
+文件名是这两个仓库之间的关联键。原地替换一份手册或模型不需要别的操作；新增、
+改名或删除则需要同时在 `nexform-guide` 开 PR，改 `files.yaml` 和页面链接两处，
+否则站点会继续指向旧文件。
+
 ## 相关仓库
 
 文档与开箱安装：
