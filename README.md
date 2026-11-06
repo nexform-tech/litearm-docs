@@ -31,6 +31,13 @@ survey of the other language bindings and the ROS 2 environment, the LiteArm
 Studio host application and safe operation on real hardware, and two appendices
 — robot state and error codes, and connecting over serial.
 
+## Models
+
+| File | Contents |
+| --- | --- |
+| [`LITEARM-SE-step-model.STEP`](LITEARM-SE-step-model.STEP) | STEP model of the LITEARM SE arm |
+| [`LITEARM-SE末端连接件.STEP`](<LITEARM-SE末端连接件.STEP>) | STEP model of the end connector |
+
 ## Related repositories
 
 Documentation and setup reads:
