@@ -1,0 +1,20 @@
+% 相机支架安装使用方式：三幅图版式短文。
+%
+% 手册版式把图限制在 0.82 版心宽、0.42 页高，那是为正文中夹图的版面定的；这份文档
+% 每页只有一幅标注图，图本身就是要传达的内容，所以放开到版心满宽、0.72 页高。
+% 高度取 0.72 而不是更高：第三幅图是竖图，高度封顶后要留出图注和它下面那张表格，
+% 否则表格被挤到下一页，一节占两页。
+% 图按 H 排，紧跟它的表格，不浮动到后面去。
+\AtBeginDocument{\setkeys{Gin}{width=\linewidth,height=0.72\textheight,keepaspectratio}}
+\makeatletter
+\AtBeginDocument{\def\fps@figure{H}}
+\makeatother
+% 图与表格紧挨着排，省下的竖直间距留给表格本身：一节一页，图占大半页，表格只要
+% 少一行就会溢到下一页。LTpre/LTpost 是 longtable 上下留白，intextsep 是浮动体
+% 上下留白，都压到 6pt。
+\AtBeginDocument{%
+  \setlength{\intextsep}{6pt}%
+  \setlength{\textfloatsep}{8pt}%
+  \setlength{\LTpre}{6pt}%
+  \setlength{\LTpost}{2pt}%
+}

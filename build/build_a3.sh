@@ -1,19 +1,22 @@
 #!/usr/bin/env bash
-# Rebuild the LITEARM SE manual PDFs from their Markdown sources.
+# Rebuild the LITEARM SE document PDFs from their Markdown sources: the four
+# manuals and the camera bracket guide in its two editions.
 #
-# Pipeline, per manual: Markdown -> pandoc (TeX) -> zebra.py / breaktt.py
+# Pipeline, per document: Markdown -> pandoc (TeX) -> zebra.py / breaktt.py
 # post-processing -> three xelatex passes. The PDF lands in the repository root,
 # next to its source; the intermediate .tex/.aux/.log/.toc files land there too
 # and are git-ignored.
 #
-# Each manual is built in a language: the Chinese sources need xeCJK and the
+# Each document is built in a language: the Chinese sources need xeCJK and the
 # pinned CJK font, the English ones must not load xeCJK at all. build_one takes
-# the language and substitutes the matching strings into a3_layout.tex.
+# the language and substitutes the matching strings into a3_layout.tex; the
+# optional fourth argument names a per-document style fragment under build/.
 #
 # Usage:
-#   bash build/build_a3.sh                            # all four manuals
+#   bash build/build_a3.sh                            # all six documents
 #   bash build/build_a3.sh LITEARM_SE产品手册          # one of them
 #   bash build/build_a3.sh LITEARM-SE-product-manual
+#   bash build/build_a3.sh camera-bracket-guide
 #
 # Requirements: pandoc, xelatex (TeX Live with xeCJK and tikz), python3, and the
 # CJK fonts described in the repository README. The English manuals need DejaVu
@@ -160,6 +163,8 @@ PY
 
 build_one "LITEARM_SE产品手册" "LITEARM SE 产品手册" zh "a3_style_prod.tex"
 build_one "LITEARM SE软件开发手册" "LITEARM SE 软件开发手册" zh
+build_one "相机支架安装使用方式" "LITEARM SE 相机支架安装使用方式" zh "a3_style_guide.tex"
 build_one "LITEARM-SE-product-manual" "LITEARM SE Product Manual" en "a3_style_prod.tex"
 build_one "LITEARM-SE-software-development-manual" "LITEARM SE Software Development Manual" en
+build_one "camera-bracket-guide" "LITEARM SE Camera Bracket Guide" en "a3_style_guide.tex"
 echo "ALL DONE"

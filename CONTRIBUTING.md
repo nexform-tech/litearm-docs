@@ -1,8 +1,8 @@
 # Contributing
 
-How to edit, rebuild and check the LITEARM SE manuals. Read this before changing
-a manual; to read a manual rather than work on one, the [README](README.md) is
-enough.
+How to edit, rebuild and check the LITEARM SE documents. Read this before
+changing one; to read a document rather than work on one, the
+[README](README.md) is enough.
 
 ## Sources and generated files
 
@@ -15,6 +15,8 @@ generated, and the next build overwrites it:
 | `LITEARM-SE-product-manual.pdf` | `LITEARM-SE-product-manual.md` | `build/build_a3.sh` |
 | `LITEARM SE软件开发手册.pdf` | `LITEARM SE软件开发手册.md` | `build/build_a3.sh` |
 | `LITEARM-SE-software-development-manual.pdf` | `LITEARM-SE-software-development-manual.md` | `build/build_a3.sh` |
+| `相机支架安装使用方式.pdf` | `相机支架安装使用方式.md` | `build/build_a3.sh` |
+| `camera-bracket-guide.pdf` | `camera-bracket-guide.md` | `build/build_a3.sh` |
 | `manual_site/index.html` | the two Chinese manuals | `build/make_wiki.py` |
 
 **Do not edit a PDF.** The PDFs are generated from the Markdown, and the next
@@ -23,13 +25,16 @@ the Markdown and the rebuilt PDF. The intermediate `.tex`, `.aux`, `.log` and
 `.toc` files that appear alongside it are generated too and are git-ignored;
 never edit them either.
 
-`相机支架安装使用方式.pdf` and its English edition `camera-bracket-guide.pdf` are
-the exception. Their source is three raster pages exported from CAD, with the
-callouts drawn into the pictures, so there is no Markdown to build from and no
-build step that overwrites them; changing one means redrawing the pages. The
-English edition was made from the Chinese one: each Chinese callout was blanked
-and the English text set in the same red in the same place, leaving the figures
-untouched.
+**No document is source-less.** A PDF whose text is drawn into the figures is
+the one case where that looks tempting, and it is still the wrong answer. The
+camera bracket guide was three CAD pages with the callouts burnt in; its figures
+are now those same pages with the callout text blanked out and only the red
+circled numeral left, indexing the row in the table beneath the figure. Every
+word moved into the Markdown, so the guide builds like the manuals, and one set
+of figures serves both editions — an English reader sees the same drawings with
+English tables. Blanking a callout means painting over it: sample the plate
+colour on either side of the text and interpolate across, rather than smearing
+the glyphs, or the retouch shows as coloured speckle against the CAD grey.
 
 `manual_site/index.html` is committed, so it is easy to mistake for a source.
 **Keep it where it is in the repository** — its figures are referenced as
@@ -53,12 +58,13 @@ substitution, and the tables and code blocks have to be read to be right.
 From the repository root:
 
 ```bash
-bash build/build_a3.sh                            # all four manuals
+bash build/build_a3.sh                            # all six documents
 bash build/build_a3.sh LITEARM_SE产品手册          # just the Chinese product manual
 bash build/build_a3.sh LITEARM-SE-product-manual  # just the English one
+bash build/build_a3.sh camera-bracket-guide       # just the English camera bracket guide
 ```
 
-Each manual goes through pandoc to TeX, two Python post-processing passes, and
+Each document goes through pandoc to TeX, two Python post-processing passes, and
 three xelatex passes, and the result lands next to its source in the repository
 root. The `.tex`, `.aux`, `.log` and `.toc` files that appear alongside it are
 intermediates and are git-ignored.
@@ -70,13 +76,23 @@ intermediates and are git-ignored.
 | `python3` | runs `zebra.py` and `breaktt.py` |
 | Fonts | Lato, Noto Sans Mono, DejaVu Sans Mono, Noto Sans CJK SC, and the Noto Serif CJK SC single-region `.otf` files |
 
-`build/a3_layout.tex` is one layout for all four manuals, with placeholders
+`build/a3_layout.tex` is one layout for all six documents, with placeholders
 `build_a3.sh` fills per language: the CJK line-breaking and `\setCJKmainfont`
 block, the table-of-contents title (目录 or Contents), and the figure caption
 format (图 or Figure). The English builds load **no** CJK package, so their
 fonts, line breaking and page counts are genuinely independent of the Chinese
 ones; `dejavu` is the one extra dependency they carry, for the U+2500 box
 drawing in the directory-tree and link diagrams that Latin Modern Mono lacks.
+
+A document that needs a different page can add a style fragment under `build/`
+and name it as the fourth argument to `build_one`; the fragment is appended to
+the layout, so it overrides by later definition. `a3_style_prod.tex` gives the
+product manual its looser tables and its taller orphan threshold.
+`a3_style_guide.tex` gives the camera bracket guide full-width figures at 0.72
+text heights and tighter space above each table: that document is three figures,
+one per page, and a table that misses the page by a line costs a whole blank
+page. Anything shared by two documents belongs in `a3_layout.tex`; a fragment is
+for what only one document wants.
 
 The CJK body font is pinned **by file, not by family name**, because asking the
 system for `Noto Serif CJK SC` can resolve to the Japanese face in the shared
@@ -115,7 +131,7 @@ to that script, not a change to the Markdown.
 python3 build/check_docs.py
 ```
 
-It reads all four manuals and the committed `manual_site/index.html`, resolves
+It reads all six documents and the committed `manual_site/index.html`, resolves
 every `LITEARM_SE_images/...` reference against the working tree, and fails on
 the ones that do not exist. This runs in CI. A missing figure is not an error to
 either the typesetter or the browser — the image is simply absent, and neither
@@ -125,7 +141,7 @@ reorganisation of the figure tree can easily leave behind.
 
 ## The figures
 
-`LITEARM_SE_images/` holds 60 images, shared by the four manuals, the site, and
+`LITEARM_SE_images/` holds 63 images, shared by the six documents, the site, and
 the next figure still to be drawn:
 
 | Directory | Contents |
@@ -135,9 +151,10 @@ the next figure still to be drawn:
 | `litearm_studio/en/` | the English-UI counterpart of the screenshot the manuals use |
 | `placeholders/` | stand-in figures, `ph_pm_*` for the product manual and `ph_sd_*` for the software one |
 | `control_board/` | photographs of the control board |
+| `camera_bracket/` | the three camera bracket figures: numbered callouts only, every word in the tables |
 | `LITEARM_SE_images/` itself | the two cover images and three annotated arm figures |
 
-The four manuals reference ten of them today. The two editions of a manual share
+The documents reference thirteen of them today. The two editions of a manual share
 every language-independent figure, hazard pictograms included; only a screenshot
 of the user interface needs one file per language. The rest are the working set
 for figures that are not placed yet, which is why the directory is larger than
@@ -166,12 +183,17 @@ litearm-docs/
 ├── LITEARM SE软件开发手册.pdf                    # built by build/build_a3.sh
 ├── LITEARM-SE-software-development-manual.md   # its English edition
 ├── LITEARM-SE-software-development-manual.pdf
-├── LITEARM_SE_images/           # figures, shared by the manuals and the site
+├── 相机支架安装使用方式.md                       # camera bracket guide source
+├── 相机支架安装使用方式.pdf                      # built by build/build_a3.sh
+├── camera-bracket-guide.md                     # its English edition
+├── camera-bracket-guide.pdf
+├── LITEARM_SE_images/           # figures, shared by the documents and the site
 ├── manual_site/index.html       # browsable copy, built by build/make_wiki.py
 └── build/
-    ├── build_a3.sh              # Markdown -> PDF, three xelatex passes per manual
+    ├── build_a3.sh              # Markdown -> PDF, three xelatex passes per document
     ├── a3_layout.tex            # page geometry, heading, TOC and caption metrics
     ├── a3_style_prod.tex        # extra table style the product manual adds
+    ├── a3_style_guide.tex       # full-width figures and tight tables, camera bracket guide
     ├── zebra.py                 # grey striping on table body rows
     ├── breaktt.py               # \allowbreak inside \texttt, for long identifiers
     ├── make_wiki.py             # Markdown -> manual_site/index.html

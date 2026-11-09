@@ -3,20 +3,23 @@
 [English](README.md) | [简体中文](README.zh-CN.md)
 
 The product documentation for the LiteArm robotic manipulator series: the
-LITEARM SE product manual and software development manual, each in Simplified
-Chinese and in English. Every edition is published as a PDF and as Markdown.
+LITEARM SE product manual and software development manual, and the camera
+bracket guide, each in Simplified Chinese and in English. Every edition is
+published as a PDF and as Markdown.
 
-## The manuals
+## The documents
 
-| Manual | Language | Pages | PDF | Source |
+| Document | Language | Pages | PDF | Source |
 | --- | --- | --- | --- | --- |
 | LITEARM SE 产品手册 (product manual) | 简体中文 | 12 | [`LITEARM_SE产品手册.pdf`](<LITEARM_SE产品手册.pdf>) | [`LITEARM_SE产品手册.md`](<LITEARM_SE产品手册.md>) |
 | LITEARM-SE product manual | English | 13 | [`LITEARM-SE-product-manual.pdf`](LITEARM-SE-product-manual.pdf) | [`LITEARM-SE-product-manual.md`](LITEARM-SE-product-manual.md) |
 | LITEARM SE 软件开发手册 (software development manual) | 简体中文 | 28 | [`LITEARM SE软件开发手册.pdf`](<LITEARM SE软件开发手册.pdf>) | [`LITEARM SE软件开发手册.md`](<LITEARM SE软件开发手册.md>) |
 | LITEARM-SE software development manual | English | 32 | [`LITEARM-SE-software-development-manual.pdf`](LITEARM-SE-software-development-manual.pdf) | [`LITEARM-SE-software-development-manual.md`](LITEARM-SE-software-development-manual.md) |
+| 相机支架安装使用方式 (camera bracket guide) | 简体中文 | 3 | [`相机支架安装使用方式.pdf`](<相机支架安装使用方式.pdf>) | [`相机支架安装使用方式.md`](<相机支架安装使用方式.md>) |
+| Camera bracket mounting and use | English | 3 | [`camera-bracket-guide.pdf`](camera-bracket-guide.pdf) | [`camera-bracket-guide.md`](camera-bracket-guide.md) |
 
-All four are revision V1.0.4, dated 2026-10-16. The revision history is the first
-page of each.
+All four manuals are revision V1.0.4, dated 2026-10-16, and their first page is
+the revision history. The camera bracket guide is V1.0.0, dated 2026-11-06.
 
 The **product manual** is for whoever unpacks, mounts, wires or specifies the
 arm: hardware composition, units, safety notices, general and control-board
@@ -30,6 +33,11 @@ computer: the SDK usage guide, with the Python library as the main line, a
 survey of the other language bindings and the ROS 2 environment, the LiteArm
 Studio host application and safe operation on real hardware, and two appendices
 — robot state and error codes, and connecting over serial.
+
+The **camera bracket guide** is the short one: how the bracket holds the camera
+on a LiteGrip gripper or holder and how it fixes to the column, in three
+annotated figures. The callouts in a figure are numbered, and the table under it
+carries the words, so the same figures serve both editions.
 
 ## Models
 
