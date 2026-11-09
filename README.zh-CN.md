@@ -2,19 +2,22 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-LiteArm 机械臂系列的产品文档：LITEARM SE 的产品手册与软件开发手册，各有简体
-中文和英文两版，每版都提供 PDF 和 Markdown 两种形式。
+LiteArm 机械臂系列的产品文档：LITEARM SE 的产品手册、软件开发手册和相机支架
+安装使用方式，各有简体中文和英文两版，每版都提供 PDF 和 Markdown 两种形式。
 
-## 四本手册
+## 文档
 
-| 手册 | 语言 | 页数 | PDF | 源文件 |
+| 文档 | 语言 | 页数 | PDF | 源文件 |
 | --- | --- | --- | --- | --- |
 | LITEARM SE 产品手册 | 简体中文 | 12 | [`LITEARM_SE产品手册.pdf`](<LITEARM_SE产品手册.pdf>) | [`LITEARM_SE产品手册.md`](<LITEARM_SE产品手册.md>) |
 | LITEARM-SE product manual | English | 13 | [`LITEARM-SE-product-manual.pdf`](LITEARM-SE-product-manual.pdf) | [`LITEARM-SE-product-manual.md`](LITEARM-SE-product-manual.md) |
 | LITEARM SE 软件开发手册 | 简体中文 | 28 | [`LITEARM SE软件开发手册.pdf`](<LITEARM SE软件开发手册.pdf>) | [`LITEARM SE软件开发手册.md`](<LITEARM SE软件开发手册.md>) |
 | LITEARM-SE software development manual | English | 32 | [`LITEARM-SE-software-development-manual.pdf`](LITEARM-SE-software-development-manual.pdf) | [`LITEARM-SE-software-development-manual.md`](LITEARM-SE-software-development-manual.md) |
+| 相机支架安装使用方式 | 简体中文 | 3 | [`相机支架安装使用方式.pdf`](<相机支架安装使用方式.pdf>) | [`相机支架安装使用方式.md`](<相机支架安装使用方式.md>) |
+| Camera bracket mounting and use | English | 3 | [`camera-bracket-guide.pdf`](camera-bracket-guide.pdf) | [`camera-bracket-guide.md`](camera-bracket-guide.md) |
 
-四本都是 V1.0.4 版，日期 2026-10-16，首页即修订记录。
+四本手册都是 V1.0.4 版，日期 2026-10-16，首页即修订记录。相机支架安装使用方式
+是 V1.0.0 版，日期 2026-11-06。
 
 **产品手册**给开箱、安装、接线和选型的人看：硬件组成、单位说明、安全须知、
 通用规格与控制板规格、关节参数、标注图，以及常见问题。机械臂的安装步骤是
@@ -26,6 +29,10 @@ LiteArm 机械臂系列的产品文档：LITEARM SE 的产品手册与软件开�
 **软件开发手册**给用电脑驱动机械臂的人看：SDK 使用指南，以 Python 库为主线，
 另有其他语言绑定与 ROS 2 环境概述、上位机软件 LiteArm Studio 与实机安全操作
 建议，以及两个附录——机器人状态与报错、机械臂连接。
+
+**相机支架安装使用方式**是最短的一份：相机支架怎样把相机固定在 LiteGrip 夹爪或
+夹持器上，以及怎样固定在立柱上，三幅标注图说清楚。图里的标注只留编号，文字在
+图下的表格里，所以中英两版共用同一组图。
 
 ## 文档中心
 
