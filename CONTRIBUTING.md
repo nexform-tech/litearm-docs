@@ -171,6 +171,27 @@ typesetter and the site builder resolve them from the repository root. Rename on
 and those references break: run `python3 build/check_docs.py` to find out before
 CI does.
 
+## The STEP models
+
+A STEP file is text, and SolidWorks writes the part name into its `FILE_NAME`
+header in the system code page — GBK on a Chinese Windows. Those bytes are not
+valid UTF-8, and a tool that reads the file as text and re-encodes it will
+change it: the contents API on GitHub returns such a blob as UTF-8 of its
+Latin-1 reading, longer than the file in the repository and with no error. It
+cost one mangled copy of the column model to learn; the sync now fetches from
+`raw`, which does not touch the bytes.
+
+Still, **commit only a UTF-8 STEP file**. `LITEARM-SE-column-model.STEP` was
+re-encoded once to get there — GBK in, UTF-8 out, same 282,893 entities and the
+same characters in every name, four bytes longer for 总装配体 and one more per
+single character elsewhere. The arm model has always been UTF-8. A re-export
+from a Chinese-locale SolidWorks will come back as GBK, so check before
+committing:
+
+```bash
+python3 -c "open('LITEARM-SE-step-model.STEP','rb').read().decode('utf-8')"
+```
+
 ## Repository layout
 
 ```text
