@@ -44,6 +44,7 @@ carries the words, so the same figures serve both editions.
 | File | Contents |
 | --- | --- |
 | [`LITEARM-SE-step-model.STEP`](LITEARM-SE-step-model.STEP) | STEP model of the LITEARM SE arm |
+| [`LITEARM-SE-column-model.STEP`](LITEARM-SE-column-model.STEP) | STEP model of the vertical column the arm mounts on |
 | [`LITEARM-SE末端连接件.STEP`](<LITEARM-SE末端连接件.STEP>) | STEP model of the end connector |
 
 ## The documentation centre
