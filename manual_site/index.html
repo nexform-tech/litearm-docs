@@ -567,7 +567,7 @@ NEXFORM ROBOTICS
 <h2 id="图示">图示</h2>
 <h3 id="机械臂零位与坐标系">机械臂零位与坐标系</h3>
 <ul>
-<li>机械臂默认安装（台面安装、基座水平）时，基坐标系以基座安装面中心为原点，Z 轴竖直向上（与默认重力方向相反），X/Y 轴按右手定则位于安装面内；工具坐标系（TCP）位于末端法兰处，基坐标系与工具坐标系的标注如图2所示。实际朝向请以 URDF/仿真（base_link 与 ee_frame_link）或实机为准。</li>
+<li>机械臂默认安装（台面安装、基座水平）时，基坐标系以基座安装面中心为原点，Z 轴竖直向上（与默认重力方向相反），X/Y 轴按右手定则位于安装面内；工具坐标系（TCP）位于末端法兰处，基坐标系与工具坐标系的标注如图2所示。实际朝向请以 URDF/仿真（base_link 与 ee_link）或实机为准。</li>
 </ul>
 <figure>
 <img src="../LITEARM_SE_images/placeholders/ph_pm_coord.png" alt="" /><figcaption>零位与坐标系标注图</figcaption>
@@ -1517,6 +1517,10 @@ NEXFORM ROBOTICS
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a>    arm.move_l([x, y, z <span class="op">-</span> <span class="fl">0.1</span>, r, p, yw], speed<span class="op">=</span><span class="fl">0.1</span>)</span></code></pre></div>
 <h3 id="参考仓库">参考仓库</h3>
 <table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>组件</th>
@@ -1542,7 +1546,7 @@ NEXFORM ROBOTICS
 </tr>
 <tr class="odd">
 <td>URDF 描述</td>
-<td>https://github.com/nexform-tech/litearm-description</td>
+<td>https://github.com/nexform-tech/litearm-description/tree/main/SE/litearm_description</td>
 </tr>
 <tr class="even">
 <td>MoveIt 2</td>
@@ -1755,7 +1759,7 @@ NEXFORM ROBOTICS
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a><span class="ex">colcon</span> build --packages-select litearm_description</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true"></a><span class="bu">source</span> install/setup.bash</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true"></a><span class="ex">ros2</span> launch litearm_description display.launch.py</span></code></pre></div>
-<p>RViz2 会打开并显示该臂，关节状态 GUI 为每个关节提供一根滑条。运动链为 <code>base_link → Link1 … → Link7 → ee_frame_link</code>，网格为 <code>meshes/</code> 下的 STL。</p>
+<p>RViz2 会打开并显示该臂，关节状态 GUI 为每个关节提供一根滑条。运动链为 <code>base_link → joint1 → … → joint7 → ee_link</code>，网格为 <code>meshes/</code> 下的 STL。</p>
 <h2 id="常见问题与技术支持">常见问题与技术支持</h2>
 <h3 id="qa">Q&amp;A</h3>
 <p><strong>问：关节空间运动和笛卡尔空间运动有什么区别？</strong> 答：关节空间运动（<code>movej</code> / <code>movej_sync</code>）只关注各关节从当前值过渡到目标值，不保证末端走直线；笛卡尔空间运动关注末端在空间中的轨迹，<code>move_l</code> 保证走直线、<code>move_c</code> 保证走圆弧、<code>move_path</code> 走多路点路径。两者都在控制板固件里规划。</p>
