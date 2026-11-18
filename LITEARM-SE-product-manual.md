@@ -228,7 +228,7 @@ arm.params.set_joint_limits(0, -2.8, 2.8)     # write joint by joint: narrows on
 
 ### Home pose and frames
 
-- With the arm mounted the default way — on a tabletop, base horizontal — the base frame has its origin at the centre of the base mounting face, with Z pointing straight up, opposite the default gravity direction, and X and Y in the mounting plane following the right-hand rule. The tool frame, TCP, sits at the end flange. Figure 2 marks the base and tool frames. The URDF and the simulations (`base_link` and `ee_frame_link`) and the real arm are the authority on the actual orientation.
+- With the arm mounted the default way — on a tabletop, base horizontal — the base frame has its origin at the centre of the base mounting face, with Z pointing straight up, opposite the default gravity direction, and X and Y in the mounting plane following the right-hand rule. The tool frame, TCP, sits at the end flange. Figure 2 marks the base and tool frames. The URDF and the simulations (`base_link` and `ee_link`) and the real arm are the authority on the actual orientation.
 
 ![Zero pose and frame annotations](LITEARM_SE_images/placeholders/ph_pm_coord.png)
 

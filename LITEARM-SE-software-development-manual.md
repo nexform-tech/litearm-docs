@@ -503,7 +503,7 @@ with PyBulletArm(render=True) as arm:            # connect() is implicit
 | C++ SDK | https://github.com/nexform-tech/litearm-cpp |
 | ROS 2 control stack | https://github.com/nexform-tech/litearm-ros2-control |
 | ROS 2 maintenance driver | https://github.com/nexform-tech/litearm-ros2 |
-| URDF description | https://github.com/nexform-tech/litearm-description |
+| URDF description | https://github.com/nexform-tech/litearm-description/tree/main/SE/litearm_description |
 | MoveIt 2 | https://github.com/nexform-tech/litearm-moveit2 |
 | Host application | https://github.com/nexform-tech/litearm-studio |
 | Installation guide | https://github.com/nexform-tech/litearm-setup |
@@ -626,7 +626,7 @@ source install/setup.bash
 ros2 launch litearm_description display.launch.py
 ```
 
-RViz2 opens and shows the arm, with a slider per joint in the joint state GUI. The kinematic chain is `base_link → Link1 … → Link7 → ee_frame_link`, and the meshes are the STL files under `meshes/`.
+RViz2 opens and shows the arm, with a slider per joint in the joint state GUI. The kinematic chain is `base_link → joint1 → … → joint7 → ee_link`, and the meshes are the STL files under `meshes/`.
 
 ## FAQ and support
 
