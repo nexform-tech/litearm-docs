@@ -627,7 +627,7 @@ source install/setup.bash
 ros2 launch litearm_description display.launch.py
 ```
 
-RViz2 会打开并显示该臂（litearm1019 带外壳模型），关节状态 GUI 为每个关节提供一根滑条。运动链为 `base_link → joint1 → … → joint7 → ee_link`，网格为 `meshes/` 下的 STL。
+RViz2 会打开并显示该臂，关节状态 GUI 为每个关节提供一根滑条。运动链为 `base_link → joint1 → … → joint7 → ee_link`，网格为 `meshes/` 下的 STL。
 
 ## 常见问题与技术支持
 

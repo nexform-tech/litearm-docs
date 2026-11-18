@@ -626,7 +626,7 @@ source install/setup.bash
 ros2 launch litearm_description display.launch.py
 ```
 
-RViz2 opens and shows the arm (the litearm1019 model with its outer shell fitted), with a slider per joint in the joint state GUI. The kinematic chain is `base_link → joint1 → … → joint7 → ee_link`, and the meshes are the STL files under `meshes/`.
+RViz2 opens and shows the arm, with a slider per joint in the joint state GUI. The kinematic chain is `base_link → joint1 → … → joint7 → ee_link`, and the meshes are the STL files under `meshes/`.
 
 ## FAQ and support
 
